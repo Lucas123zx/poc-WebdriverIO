@@ -1,6 +1,6 @@
 import { $ } from '@wdio/globals';
 import { RegisterElements } from '../components/registerElements.js';
-import { Browser } from '../browser/openBrowser.js';
+import { Browser } from '../browser/Browser.js';
 
 const registerElements = new RegisterElements();
 

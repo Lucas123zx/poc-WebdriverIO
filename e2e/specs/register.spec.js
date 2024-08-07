@@ -66,14 +66,13 @@ describe('Cadastrar usuário com sucesso', async () => {
         expectChai(msg).to.be.equal('Nome é obrigatório')
     });
 
-    it.only('Cadastrar usuario sem informar password', async () => { 
+    it('Cadastrar usuario sem informar password', async () => { 
         user = User.createRandomUser();
         await RegisterPage.writeName(user.name);
         await RegisterPage.writeEmail(user.email);
         await RegisterPage.clickBtnRegister();
-        /* const msg = await RegisterPage.getMsg('Password é obrigatório'); */
-       /*  const msg = await RegisterPage.getMsg('Nome é obrigatório');
-        expectChai(msg).to.be.equal('Password é obrigatório') */
+        const msg = await RegisterPage.getMsg('Password é obrigatório');
+        expectChai(msg).to.be.equal('Password é obrigatório');
     });
 });
 
