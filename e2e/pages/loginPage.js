@@ -1,15 +1,13 @@
+import { Browser }  from '../browser/Browser';
 import { $ } from '@wdio/globals';
-import { Browser }  from '../browser/openBrowser.js';
-import { LoginElements } from '../components/loginElements.js';
-
-const loginElements = new LoginElements();
 
 class LoginPage extends Browser{
 
-    get inputUsername() {return $(loginElements.inputUsername)};
-    get inputPassword() {return $(loginElements.inputPassword)};
-    get btnLogin() {return $(loginElements.btnLogin)};
-    get btnLinkRegister() {return $(loginElements.btnLinkRegister)};
+    get inputUsername() {return $('#nome')};
+    get inputEmail() {return $('#email')};
+    get inputPassword() {return $('#password')};
+    get btnLogin() {return $('button[data-testid="entrar"]')};
+    get btnLinkRegister() {return $('a[data-testid="cadastrar"]')};
 
 
     async login (username, password) {

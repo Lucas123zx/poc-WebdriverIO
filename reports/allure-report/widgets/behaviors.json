@@ -1,0 +1,1 @@
+{"total":2,"items":[{"uid":"14102d61eef2af473312d4f91dec531b","name":"Login","statistic":{"failed":0,"broken":1,"skipped":0,"passed":0,"unknown":0,"total":1}},{"uid":"bba44ecd727013f8868d52b841b46681","name":"Cadastrar usuário","statistic":{"failed":0,"broken":0,"skipped":0,"passed":6,"unknown":0,"total":6}}]}

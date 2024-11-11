@@ -1,4 +1,5 @@
 exports.config = {
+    
     //
     // ====================
     // Runner Configuration
@@ -19,7 +20,13 @@ exports.config = {
     //
     // The path of the spec files will be resolved relative from the directory of
     // of the config file unless it's absolute.
-    //
+    //         
+    reporters: [['allure', {
+        outputDir: './reports/allure-results',
+        disableWebdriverStepsReporting: false,
+        disableWebdriverScreenshotsReporting: false,
+    }]],
+
     specs: [
         '../e2e/specs/**/*.js'
     ],
@@ -43,14 +50,15 @@ exports.config = {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: 10,
+    maxInstances: 1,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://saucelabs.com/platform/platform-configurator
     //
     capabilities: [{
-        browserName: 'chrome'
+        // capabilities for local browser web tests
+        browserName: 'chrome' // or "firefox", "microsoftedge", "safari"
     }],
 
     //
@@ -65,7 +73,7 @@ exports.config = {
     // Set specific log levels per logger
     // loggers:
     // - webdriver, webdriverio
-    // - @wdio/browserstack-service, @wdio/devtools-service, @wdio/sauce-service
+    // - @wdio/browserstack-service, @wdio/lighthouse-service, @wdio/sauce-service
     // - @wdio/mocha-framework, @wdio/jasmine-framework
     // - @wdio/local-runner
     // - @wdio/sumologic-reporter
@@ -109,7 +117,7 @@ exports.config = {
     // Make sure you have the wdio adapter package for the specific framework installed
     // before running any tests.
     framework: 'mocha',
-    
+
     //
     // The number of times to retry the entire specfile when it fails as a whole
     // specFileRetries: 1,
@@ -123,7 +131,7 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec'],
+    // reporters: ['dot'],
 
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
@@ -186,7 +194,6 @@ exports.config = {
      */
     // before: function (capabilities, specs) {
     // },
-
     /**
      * Runs before a WebdriverIO command gets executed.
      * @param {string} commandName hook command name
@@ -203,6 +210,11 @@ exports.config = {
     /**
      * Function to be executed before a test (in Mocha/Jasmine) starts.
      */
+    afterTest: async function (test, context, { error, result, duration, passed, retries }) {
+        if (error) {
+            await browser.takeScreenshot();
+        }
+    },
     // beforeTest: function (test, context) {
     // },
     /**
@@ -229,6 +241,8 @@ exports.config = {
      */
     // afterTest: function(test, context, { error, result, duration, passed, retries }) {
     // },
+
+
     /**
      * Hook that gets executed after the suite has ended
      * @param {object} suite suite details

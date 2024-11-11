@@ -1,0 +1,8 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","1453","Cadastrar usuario sem informar password","","Sun Nov 10 21:36:47 BRT 2024","passed","Sun Nov 10 21:36:48 BRT 2024","","Cadastrar usuário","",""
+"","1864","Cadastrar usuário usando credencial email vinculada a outra conta","","Sun Nov 10 21:36:42 BRT 2024","passed","Sun Nov 10 21:36:44 BRT 2024","","Cadastrar usuário","",""
+"","1535","Cadastrar usuario sem informar nome","","Sun Nov 10 21:36:45 BRT 2024","passed","Sun Nov 10 21:36:47 BRT 2024","","Cadastrar usuário","",""
+"","5443","Cadastrar usuário commun com sucesso","","Sun Nov 10 21:36:37 BRT 2024","passed","Sun Nov 10 21:36:42 BRT 2024","","Cadastrar usuário","",""
+"","3","Login user adm com sucesso","","Sun Nov 10 21:36:25 BRT 2024","broken","Sun Nov 10 21:36:25 BRT 2024","","Login","",""
+"","6678","Cadastrar usuário adm com sucesso","","Sun Nov 10 21:36:30 BRT 2024","passed","Sun Nov 10 21:36:37 BRT 2024","","Cadastrar usuário","",""
+"","1493","Cadastrar usuario sem informar email","","Sun Nov 10 21:36:44 BRT 2024","passed","Sun Nov 10 21:36:45 BRT 2024","","Cadastrar usuário","",""

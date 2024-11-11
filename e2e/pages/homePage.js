@@ -1,17 +1,15 @@
-import { HomeElements } from "../components/homeElements.js";
 import { $ } from '@wdio/globals';
-
-const homeElements = new HomeElements();
 
 class HomePage {
 
-  get textHome() {return $(homeElements.title)}; 
+  get titleHome() {return $("h1")}; 
  
   async getTextoHome() {
-    return await this.textHome.getText();
+    await this.titleHome.waitForExist();
+    return await this.titleHome.getText();
   };
 
-  
 }
+
 export default new HomePage();
 

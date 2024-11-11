@@ -1,19 +1,18 @@
+import { Browser } from '../browser/Browser';
 import { $ } from '@wdio/globals';
-import { RegisterElements } from '../components/registerElements.js';
-import { Browser } from '../browser/Browser.js';
-
-const registerElements = new RegisterElements();
 
 class RegisterPage extends Browser {
 
-    get inputName() {return $(registerElements.inputName)};
-    get inputEmail() { return $(registerElements.inputEmail)};
-    get inputPassword() { return $(registerElements.inputPassword)};
-    get inputAdm() { return $(registerElements.inputAdm)};
-    get btnRegister() { return $(registerElements.btnRegister)};
-    get msgSuccess() {return $(registerElements.msgSuccess)};
-    msgFaill(texto) {return $(registerElements.msgFaill(texto))};
+    get inputName() {return $('#nome')};
+    get inputEmail() { return $('#email')};
+    get inputPassword() { return $('#password')};
+    get inputAdm() { return $('#administrador')};
+    get btnRegister() { return $('button[data-testid="cadastrar"]')};
+    get msgSuccess() {return $('a[class="alert-link"]')};
 
+    msgFail(texto) {
+        return $(`//span[text()="${texto}"]`);
+    };
 
     async writeName(name) {
         await this.inputName.addValue(name);
@@ -23,8 +22,8 @@ class RegisterPage extends Browser {
         await this.inputEmail.addValue(email);
     };
 
-    async writePasswor(email) {
-        await this.inputPassword.addValue(email);
+    async writePassword(password) {
+        await this.inputPassword.addValue(password);
     };
 
     async clickBtnAdm() {
@@ -35,18 +34,38 @@ class RegisterPage extends Browser {
         await this.btnRegister.click();
     };
 
-    async getMsg(texto) {
-        const msgSucess = await this.msgSuccess.isDisplayed();
-        if( msgSucess === true)
-            return await this.msgSuccess.getText();
-        else {
-            return await this.msgFaill(texto).getText();
-        }
+    async getMsgSucess() {
+        await this.msgSuccess.isDisplayed();  
+        const msgSucess = await this.msgSuccess.getText();
+        console.log(msgSucess);
+        return msgSucess;
+    };
+
+    async getMsgFail(texto) {
+        this.msgFail(texto).isDisplayed();
+        const msgFail = await this.msgFail(texto).getText();
+        console.log(msgFail);
+        return msgFail;
     };
 
     async open () {
         return await super.open('cadastrarusuarios');
     };
+
+    async registerUser(name, email, password) {
+        await this.writeName(name);
+        await this.writeEmail(email);
+        await this.writePassword(password);
+        await this.clickBtnRegister();
+    };
+
+    async registerUserAdm(name, email, password) {
+        await this.writeName(name);
+        await this.writeEmail(email);
+        await this.writePassword(password);
+        await this.clickBtnAdm();
+        await this.clickBtnRegister();
+    }
 
     
 }
