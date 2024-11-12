@@ -5,10 +5,9 @@
   "main": "index.js",
   "scripts": {
     "wdio": "echo \"Error: no test specified\" && exit 1",
-    "test": "npx wdio run ./config/wdio.conf.js & npm run merge-reports && npm run generate-mocha",
-    "generate-allure": "allure generate ./reports/allure-results --clean -o ./reports/allure-report && allure open ./reports/allure-report",
+    "test": "npx wdio run ./config/wdio.conf.js",
     "merge-reports": "mochawesome-merge './reports/mochawesome/json/results*.json' > ./reports/mochawesome/json/combined-report.json",
-    "generate-mocha": "marge ./reports/mochawesome/json/combined-report.json --reportDir ./reports/mochawesome/html --reportFilename mochawesome-report"
+    "generate-mocha": "npx marge ./reports/mochawesome/json/combined-report.json --reportDir ./reports/mochawesome/html --reportFilename mochawesome-report"
   },
   "keywords": [],
   "author": "",
