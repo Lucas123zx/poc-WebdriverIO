@@ -33,11 +33,14 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Load .env variables
+        run: echo "$(cat .env)" >> $GITHUB_ENV
+
       - name: Run WebdriverIO Tests
         env:
           # Defina qualquer variável de ambiente necessária
           NODE_ENV: test
-          URLBASE: ${{ vars.URLBASE }}
+          BASE_URL: ${{ vars.BASE_URL }}
         run: npm run test # Ajuste para o comando que inicia seus testes no WebdriverI
 
       - name: Merge Report
