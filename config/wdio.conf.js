@@ -62,6 +62,7 @@ exports.config = {
     capabilities: [{
         // capabilities for local browser web tests
         browserName: 'chrome',
+        acceptInsecureCerts: true,
         'goog:chromeOptions': {
             args: [
                 '--headless',
