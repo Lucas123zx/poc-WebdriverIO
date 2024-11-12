@@ -50,7 +50,7 @@ jobs:
         run: npm run generate-mocha # Ajuste ao comando de merge que você usa para o Mochawesome
 
       - name: Upload Report
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: mochawesome-report
           path: ./reports/mochawesome/json/combined-report.json
