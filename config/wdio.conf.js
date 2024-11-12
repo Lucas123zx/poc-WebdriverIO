@@ -21,11 +21,21 @@ exports.config = {
     // The path of the spec files will be resolved relative from the directory of
     // of the config file unless it's absolute.
     //         
-    reporters: [['allure', {
+    /* reporters: [['allure', {
         outputDir: './reports/allure-results',
         disableWebdriverStepsReporting: false,
         disableWebdriverScreenshotsReporting: false,
-    }]],
+    }]], */
+
+    reporters: [
+        'spec',
+        ['mochawesome', {
+            outputDir: './reports/mochawesome/json',
+            outputFileFormat: function(opts) { 
+                return `results-${opts.cid}.json`; 
+            }
+        }]
+    ],
 
     specs: [
         '../e2e/specs/**/*.js'

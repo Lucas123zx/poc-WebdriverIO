@@ -1,3 +1,0 @@
-{
-  "text": "Don O'Kon"
-}

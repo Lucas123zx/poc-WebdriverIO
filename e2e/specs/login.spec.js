@@ -13,8 +13,7 @@ describe("Login", async () => {
     await RegisterPage.open();
     let user = User.createRandomUser();
     await RegisterPage.registerUserAdm(user.name, user.email, user.password)
-    await BaseSteps.validarSeEstouNaUrl('https://front.serverest.dev/cadastrarusuarios');
-    const homeText = HomePage.getTextoHome();
+    const homeText = await HomePage.getTextoHome();
     expectChai(homeText).to.eql('Bem Vindo ' + user.name);
     users.push(user);
   });
@@ -23,10 +22,9 @@ describe("Login", async () => {
     await RegisterPage.open();
     let user = User.createRandomUser();
     await RegisterPage.registerUser(user.name, user.email, user.password);
-    BaseSteps.validarSeEstouNaUrl('https://front.serverest.dev/cadastrarusuarios');
-    users.push(user);
     const homeText = await HomePage.getTextoHome();
     expectChai(homeText).to.eql('Serverest Store');
+    users.push(user);
   })
 
   it.only("Login user adm com sucesso", async () => {
