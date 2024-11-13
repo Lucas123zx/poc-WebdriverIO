@@ -52,7 +52,7 @@ jobs:
         if: always()
         run: |
           if [ -f "${{ github.workspace }}/reports/mochawesome/json/combined-report.json" ]; then
-            npm run generate-mocha --reportDir ${{ github.workspace }}/reports/mochawesome/html --reportFilename mochawesome-report
+            npm run generate-mocha --reportDir ${{ github.workspace }}/reports/mochawesome/html/ --reportFilename mochawesome-report
             if [ -f "${{ github.workspace }}/reports/mochawesome/html/mochawesome-report.html" ]; then
               echo "Relatório HTML gerado com sucesso."
             else
