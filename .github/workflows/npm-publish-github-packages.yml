@@ -35,13 +35,12 @@ jobs:
           NODE_ENV: test
           BASE_URL: ${{ vars.BASE_URL }}
         run: npm run test # Ajuste para o comando que inicia seus testes no WebdriverI
-        continue-on-error: true   
-
-      - name: Merge Report
-        run: npm run merge-reports # Ajuste ao comando de merge que você usa para o Mochawesom
+        continue-on-error: true 
 
       - name: Generate Mochawesome Report
-        run: npm run generate-mocha # Ajuste ao comando de merge que você usa para o Mochawesome
+          run: |
+          npm run mochawesome-merge './reports/mochawesome/json/results*.json' > ./reports/mochawesome/json/combined-report.json
+          npm run mochawesome-report --output ./reports/mochawesome/html-report  # Replace with your report generation command
 
       - name: Upload Report
         uses: actions/upload-artifact@v4
