@@ -41,17 +41,26 @@ jobs:
         run: |
           mkdir -p ${{ github.workspace }}/reports/mochawesome/json
           npm run merge-reports
-        env:
-          REPORT_JSON_DIR: "${{ github.workspace }}/reports/mochawesome/json"
-          COMBINED_REPORT: "${{ github.workspace }}/reports/mochawesome/json/combined-report.json"
+          if [ -f "${{ github.workspace }}/reports/mochawesome/json/combined-report.json" ]; then
+            echo "Arquivo combined-report.json encontrado e gerado com sucesso."
+          else
+            echo "Erro: combined-report.json não foi gerado."
+            exit 1
+          fi
 
       - name: Generate Mochawesome HTML Report
         if: always()
         run: |
           if [ -f "${{ github.workspace }}/reports/mochawesome/json/combined-report.json" ]; then
             npm run generate-mocha --reportDir ${{ github.workspace }}/reports/mochawesome/html --reportFilename mochawesome-report
+            if [ -f "${{ github.workspace }}/reports/mochawesome/html/mochawesome-report.html" ]; then
+              echo "Relatório HTML gerado com sucesso."
+            else
+              echo "Erro: mochawesome-report.html não foi gerado."
+              exit 1
+            fi
           else
-            echo "combined-report.json não encontrado."
+            echo "Erro: combined-report.json não encontrado, não é possível gerar o HTML."
             exit 1
           fi
 
