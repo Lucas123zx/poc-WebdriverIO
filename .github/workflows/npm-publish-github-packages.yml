@@ -38,15 +38,26 @@ jobs:
 
       - name: Merge Mochawesome JSON Reports
         if: always()
-        run: npm run merge-reports 
+        run: |
+          mkdir -p ${{ github.workspace }}/reports/mochawesome/json
+          npm run merge-reports
+        env:
+          REPORT_JSON_DIR: "${{ github.workspace }}/reports/mochawesome/json"
+          COMBINED_REPORT: "${{ github.workspace }}/reports/mochawesome/json/combined-report.json"
 
       - name: Generate Mochawesome HTML Report
         if: always()
-        run: npm run generate-mocha 
+        run: |
+          if [ -f "${{ github.workspace }}/reports/mochawesome/json/combined-report.json" ]; then
+            npm run generate-mocha
+          else
+            echo "combined-report.json não encontrado."
+            exit 1
+          fi
 
       - name: Upload HTML Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: mochawesome-report
-          path: ./reports/mochawesome/html/mochawesome-report.html
+          path: ${{ github.workspace }}/reports/mochawesome/html/mochawesome-report.html
