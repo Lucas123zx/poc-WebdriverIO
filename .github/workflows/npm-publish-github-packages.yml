@@ -53,7 +53,7 @@ jobs:
         run: |
           if [ -f "${{ github.workspace }}/reports/mochawesome/json/combined-report.json" ]; then
             npm run generate-mocha
-            if [ -f "${{ github.workspace }}/reports/mochawesome/html/mochawesome-report.html" ]; then
+            if [ -f "${{ github.workspace }}/reports/mochawesome/html/assets" ]; then
               echo "Relatório HTML gerado com sucesso."
             else
               echo "Erro: mochawesome-report.html não foi gerado."
