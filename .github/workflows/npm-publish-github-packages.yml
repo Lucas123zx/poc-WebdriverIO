@@ -42,9 +42,9 @@ jobs:
 
       - name: Generate Mochawesome Report
         run: | 
-        echo "Verificando se o arquivo combined-report.json foi gerado..."
-        npm run generate-mocha # Ajuste ao comando de merge que você usa para o Mochawesome
-        ls -lh ${{ github.workspace }}/reports/mochawesome/html
+          echo "Verificando se o arquivo combined-report.json foi gerado..."
+          npm run generate-mocha # Ajuste ao comando de merge que você usa para o Mochawesome
+          ls -lh ${{ github.workspace }}/reports/mochawesome/html
 
       - name: Upload Report
         uses: actions/upload-artifact@v4
