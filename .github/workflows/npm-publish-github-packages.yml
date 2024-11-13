@@ -51,9 +51,9 @@ jobs:
         if: always()
         run: | 
           npm run generate-mocha 
-          echo "Verificando se o arquivo mochawesome-report.html foi gerado..."
-          ls -lh ./reports/mochawesome/html
-          cat ./reports/mochawesome/html/mochawesome-report.html || echo "Arquivo mochawesome-report.html não encontrado."
+          echo "Verificando se o arquivo combined-report.json foi gerado..."
+          ls -lh ./reports/mochawesome/json
+          cat ./reports/mochawesome/json/combined-report.json || echo "Arquivo combined-report.json não encontrado."
 
       - name: Upload HTML Report
         if: always()
