@@ -7,7 +7,7 @@
     "wdio": "echo \"Error: no test specified\" && exit 1",
     "test": "npx wdio run ./config/wdio.conf.js",
     "merge-reports": "mochawesome-merge './reports/mochawesome/json/results*.json' > ./reports/mochawesome/json/combined-report.json",
-    "generate-mocha": "npx marge ./reports/mochawesome/json/combined-report.json --reportDir ./reports/mochawesome/html --reportFilename mochawesome-report"
+    "generate-mocha": "npx marge ./reports/mochawesome/json/results-0-1.json --reportDir ./reports/mochawesome/html --reportFilename mochawesome-report"
   },
   "keywords": [],
   "author": "",

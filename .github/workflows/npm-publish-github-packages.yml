@@ -38,22 +38,11 @@ jobs:
 
       - name: Merge Mochawesome JSON Reports
         if: always()
-        run: npm run merge-reports # Comando para mesclar relatórios JSON gerados pelo Mochawesome
-
-      - name: Verificar geração do combined-report.json
-        if: always()
-        run: |
-          echo "Verificando se o arquivo combined-report.json foi gerado..."
-          ls -lh ./reports/mochawesome/json
-          cat ./reports/mochawesome/json/combined-report.json || echo "Arquivo combined-report.json não encontrado."
+        run: npm run merge-reports 
 
       - name: Generate Mochawesome HTML Report
         if: always()
-        run: | 
-          npm run generate-mocha 
-          echo "Verificando se o arquivo combined-report.json foi gerado..."
-          ls -lh ./reports/mochawesome/json
-          cat ./reports/mochawesome/json/combined-report.json || echo "Arquivo combined-report.json não encontrado."
+        run: npm run generate-mocha 
 
       - name: Upload HTML Report
         if: always()
