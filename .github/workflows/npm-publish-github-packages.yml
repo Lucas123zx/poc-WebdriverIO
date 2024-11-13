@@ -33,7 +33,7 @@ jobs:
         env:
           NODE_ENV: test
           BASE_URL: ${{ vars.BASE_URL }}
-        run: npm run test # Ajuste para o comando que inicia seus testes no WebdriverIO
+        run: npm run test
         continue-on-error: true
 
       - name: Merge Mochawesome JSON Reports
@@ -49,7 +49,7 @@ jobs:
         if: always()
         run: |
           if [ -f "${{ github.workspace }}/reports/mochawesome/json/combined-report.json" ]; then
-            npm run generate-mocha
+            npm run generate-mocha --reportDir ${{ github.workspace }}/reports/mochawesome/html --reportFilename mochawesome-report
           else
             echo "combined-report.json não encontrado."
             exit 1
