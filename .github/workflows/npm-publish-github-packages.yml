@@ -31,18 +31,21 @@ jobs:
 
       - name: Run WebdriverIO Tests
         env:
-          # Defina qualquer variável de ambiente necessária
           NODE_ENV: test
           BASE_URL: ${{ vars.BASE_URL }}
-        run: npm run test # Ajuste para o comando que inicia seus testes no WebdriverI
-        continue-on-error: true 
+        run: npm run test # Ajuste para o comando que inicia seus testes no WebdriverIO
+        continue-on-error: true
 
-      - name: Generate Mochawesome Report
-          run: |
-          npm run mochawesome-merge './reports/mochawesome/json/results*.json' > ./reports/mochawesome/json/combined-report.json
-          npm run mochawesome-report --output ./reports/mochawesome/html-report  # Replace with your report generation command
+      - name: Merge Mochawesome JSON Reports
+        if: always()
+        run: npm run merge-reports # Comando para mesclar relatórios JSON gerados pelo Mochawesome
 
-      - name: Upload Report
+      - name: Generate Mochawesome HTML Report
+        if: always()
+        run: npm run generate-mocha # Comando que converte o relatório combinado em um HTML
+
+      - name: Upload HTML Report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: mochawesome-report
