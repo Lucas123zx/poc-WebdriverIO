@@ -5,7 +5,7 @@ import RegisterPage from "../pages/RegisterPage.js";
 import LoginPage from "../pages/LoginPage.js";
 import HomePage from '../pages/HomePage.js';
 
-describe("Login", async () => {
+describe("Login", () => {
 
   let users = [];
 
