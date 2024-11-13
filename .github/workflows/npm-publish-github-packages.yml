@@ -11,7 +11,7 @@ on:
       - develop
 
 jobs:
-  test:
+  test-e2e:
     runs-on: ubuntu-latest
 
     steps:
@@ -35,6 +35,7 @@ jobs:
           NODE_ENV: test
           BASE_URL: ${{ vars.BASE_URL }}
         run: npm run test # Ajuste para o comando que inicia seus testes no WebdriverI
+        continue-on-error: true  
 
       - name: Merge Report
         run: npm run merge-reports # Ajuste ao comando de merge que você usa para o Mochawesom

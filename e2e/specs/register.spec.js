@@ -3,7 +3,7 @@ import { User } from '../util/User.js';
 import {expect as expectChai} from 'chai';
 import RegisterPage from '../pages/RegisterPage.js';
 import HomePage from '../pages/HomePage.js';
-describe('Cadastrar usuário', async () => {
+describe('Cadastrar usuário', () => {
 
     let userRegistered;
     let user;
