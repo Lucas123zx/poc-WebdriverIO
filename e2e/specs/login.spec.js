@@ -1,13 +1,17 @@
-import { BaseSteps } from '../util/BaseSteps.js';
-import { User } from '../util/User.js';
 import { expect as expectChai } from 'chai';
+import { before, describe, it} from 'mocha';
+import { User } from '../util/User.js';
+import { BaseSteps } from '../util/BaseSteps.js';
 import RegisterPage from "../pages/RegisterPage.js";
 import LoginPage from "../pages/LoginPage.js";
 import HomePage from '../pages/HomePage.js';
 
 describe("Login", () => {
 
-  let users = [];
+  const users = {
+    admin: { name: "", email: "", password: "" },
+    common: { name: "", email: "", password: "" }
+  };
 
   before("Criar usuario Adm", async () => {
     await RegisterPage.open();
@@ -15,7 +19,7 @@ describe("Login", () => {
     await RegisterPage.registerUserAdm(user.name, user.email, user.password)
     const homeText = await HomePage.getTextoHome();
     expectChai(homeText).to.eql('Bem Vindo ' + user.name);
-    users.push(user);
+    users.admin = user;
   });
 
   before("Criar usuário comun" , async () => {
@@ -24,20 +28,20 @@ describe("Login", () => {
     await RegisterPage.registerUser(user.name, user.email, user.password);
     const homeText = await HomePage.getTextoHome();
     expectChai(homeText).to.eql('Serverest Store');
-    users.push(user);
-  })
+    users.common = user;
+  });
 
-  it.only("Login user adm com sucesso", async () => {
+  it("Login user adm com sucesso", async () => {
     LoginPage.open();
-    await LoginPage.login(users[0].email, users[0].password);
+    await LoginPage.login(users.admin.email, users.admin.password);
     const homeText = await HomePage.getTextoHome();
-    expectChai(homeText).to.eql('Bem Vindo ' + users[0].name);
+    expectChai(homeText).to.eql('Bem Vindo ' + users.admin.name);
     await BaseSteps.validarSeEstouNaUrl('https://front.serverest.dev/admin/home');
   });
 
   it("Login user com sucesso", async () => {
     LoginPage.open();
-    await LoginPage.login(users[1].email, users[1].password);
+    await LoginPage.login(users.common.email, users.common.password);
     const homeText = await HomePage.getTextoHome();
     expectChai(homeText).to.eql('Serverest Store');
     await BaseSteps.validarSeEstouNaUrl('https://front.serverest.dev/home');

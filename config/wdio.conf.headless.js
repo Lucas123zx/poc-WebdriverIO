@@ -31,7 +31,7 @@ export const config = {
         }]
     ],
     specs: [
-        '../e2e/specs/login.spec.js'
+        '../e2e/specs/**/*.js'
     ],
     // Patterns to exclude.
     exclude: [
@@ -62,7 +62,18 @@ export const config = {
     capabilities: [{
         // capabilities for local browser web tests
         browserName: 'chrome',
-        acceptInsecureCerts: true
+        acceptInsecureCerts: true,
+        'goog:chromeOptions': {
+            args: [
+                '--headless',
+                '--no-sandbox',
+                '--disable-gpu',
+                '--disable-dev-shm-usage',
+                '--window-size=1920,1080',
+                '--disable-dev-tools',
+                '--disable-extensions'
+            ],
+        }
     }],
 
     //

@@ -1,6 +1,5 @@
-import { Browser } from '../browser/Browser';
 import { $ } from '@wdio/globals';
-
+import { Browser } from '../browser/Browser';
 class RegisterPage extends Browser {
 
     get inputName() {return $('#nome')};
@@ -37,14 +36,12 @@ class RegisterPage extends Browser {
     async getMsgSucess() {
         await this.msgSuccess.isDisplayed();  
         const msgSucess = await this.msgSuccess.getText();
-        console.log(msgSucess);
         return msgSucess;
     };
 
     async getMsgFail(texto) {
         this.msgFail(texto).isDisplayed();
         const msgFail = await this.msgFail(texto).getText();
-        console.log(msgFail);
         return msgFail;
     };
 

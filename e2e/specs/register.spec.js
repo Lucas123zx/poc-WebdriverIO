@@ -1,8 +1,10 @@
-import { BaseSteps } from '../util/BaseSteps.js';
-import { User } from '../util/User.js';
 import {expect as expectChai} from 'chai';
+import { beforeEach, describe, it } from 'mocha';
+import { User } from '../util/User.js';
+import { BaseSteps } from '../util/BaseSteps.js';
 import RegisterPage from '../pages/RegisterPage.js';
 import HomePage from '../pages/HomePage.js';
+
 describe('Cadastrar usuário', () => {
 
     let userRegistered;

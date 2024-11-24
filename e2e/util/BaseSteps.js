@@ -1,4 +1,5 @@
 import { expect } from '@wdio/globals';
+import { browser } from '@wdio/globals';
 export class BaseSteps {
 
     static async validarSeEstouNaUrl(url) {

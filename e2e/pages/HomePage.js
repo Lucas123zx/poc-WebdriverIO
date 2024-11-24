@@ -1,5 +1,4 @@
 import { $ } from '@wdio/globals';
-
 class HomePage {
 
   get titleHome() {return $("h1")}; 

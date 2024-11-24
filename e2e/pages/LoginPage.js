@@ -1,6 +1,5 @@
-import { Browser }  from '../browser/Browser';
 import { $ } from '@wdio/globals';
-
+import { Browser }  from '../browser/Browser';
 class LoginPage extends Browser{
 
     get inputUsername() {return $('#nome')};
