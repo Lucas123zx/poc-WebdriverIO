@@ -3,7 +3,7 @@ import 'dotenv/config';
 
 export class Browser {
 
-    async open (path) {
+    async open(path) {
         return await browser.url(`${process.env.BASE_URL}${path}`);
     };
 

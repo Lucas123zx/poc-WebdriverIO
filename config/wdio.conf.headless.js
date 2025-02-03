@@ -225,7 +225,7 @@ export const config = {
     /**
      * Function to be executed before a test (in Mocha/Jasmine) starts.
      */
-    afterTest: async function (test, context, { error, result, duration, passed, retries }) {
+    afterTest: async function (test, context, { error }) {
         if (error) {
             await browser.takeScreenshot();
         }

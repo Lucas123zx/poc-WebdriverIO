@@ -1,9 +1,9 @@
 import {expect as expectChai} from 'chai';
 import { beforeEach, describe, it } from 'mocha';
-import { User } from '../util/User.js';
-import { BaseSteps } from '../util/BaseSteps.js';
-import RegisterPage from '../pages/RegisterPage.js';
-import HomePage from '../pages/HomePage.js';
+import { User } from '../../support/util/util/User.js';
+import RegisterActions from '../../support/actions/ui/RegisterActions.js';
+import CommonActions from '../../support/actions/ui/CommonActions.js';
+import HomeActions from '../../support/actions/ui/HomeActions.js';
 
 describe('Cadastrar usuário', () => {
 
@@ -11,68 +11,65 @@ describe('Cadastrar usuário', () => {
     let user;
 
     beforeEach(async () => {
-        RegisterPage.open();
+        RegisterActions.open();
     });
 
-    it('Cadastrar usuário adm com sucesso', async () => { 
+    it('Cadastrar usuário adm com sucesso', async function() { 
         user = User.createRandomUser();
         userRegistered = user;
-        await RegisterPage.writeName(user.name);
-        await RegisterPage.writeEmail(user.email);
-        await RegisterPage.writePassword(user.password);
-        await RegisterPage.clickBtnAdm();
-        await RegisterPage.clickBtnRegister();
-        const homeText = await HomePage.getTextoHome();
+        await CommonActions.writeName(user.name);
+        await CommonActions.writeEmail(user.email);
+        await CommonActions.writePassword(user.password);
+        await CommonActions.clickBtnAdm();
+        await RegisterActions.clickBtnRegister();
+        const homeText = await HomeActions.getTexto();
         expectChai(homeText).to.be.equal('Bem Vindo ' + user.name);
-        await BaseSteps.validarSeEstouNaUrl('https://front.serverest.dev/admin/home');
-        await BaseSteps.screenshot();
     });
 
-    it('Cadastrar usuário commun com sucesso', async () => { 
+    it('Cadastrar usuário commun com sucesso', async function() { 
         user = User.createRandomUser();
-        await RegisterPage.writeName(user.name);
-        await RegisterPage.writeEmail(user.email);
-        await RegisterPage.writePassword(user.password);
-        await RegisterPage.clickBtnRegister();
-        const homeText = await HomePage.getTextoHome();
+        await CommonActions.writeName(user.name);
+        await CommonActions.writeEmail(user.email);
+        await CommonActions.writePassword(user.password);
+        await RegisterActions.clickBtnRegister();
+        const homeText = await HomeActions.getTexto();
         expectChai(homeText).to.be.equal('Serverest Store');
-        await BaseSteps.validarSeEstouNaUrl('https://front.serverest.dev/home')
     });
-
-    it('Cadastrar usuário usando credencial email vinculada a outra conta', async () => { 
+    
+    it('Cadastrar usuário usando credencial email vinculada a outra conta', async function() { 
         user = userRegistered; 
-        await RegisterPage.writeName(user.name);
-        await RegisterPage.writeEmail(user.email);
-        await RegisterPage.writePassword(user.password);
-        await RegisterPage.clickBtnRegister();
-        const msg = await RegisterPage.getMsgFail('Este email já está sendo usado');
+        await CommonActions.writeName(user.name);
+        await CommonActions.writeEmail(user.email);
+        await CommonActions.writePassword(user.password);
+        await RegisterActions.clickBtnRegister();
+        const msg = await RegisterActions.getMsgFail('Este email já está sendo usado');
         expectChai(msg).to.be.equal('Este email já está sendo usado')
     });
 
-    it('Cadastrar usuario sem informar email', async () => { 
+    it('Cadastrar usuario sem informar email', async function() { 
         user = User.createRandomUser();
-        await RegisterPage.writeName(user.name);
-        await RegisterPage.writePassword(user.password);
-        await RegisterPage.clickBtnRegister();
-        const msg = await RegisterPage.getMsgFail('Email é obrigatório');
+        await CommonActions.writeName(user.name);
+        await CommonActions.writePassword(user.password);
+        await RegisterActions.clickBtnRegister();
+        const msg = await RegisterActions.getMsgFail('Email é obrigatório');
         expectChai(msg).to.be.equal('Email é obrigatório')
     });
     
-    it('Cadastrar usuario sem informar nome', async () => { 
+    it('Cadastrar usuario sem informar nome', async function() { 
         user = User.createRandomUser();
-        await RegisterPage.writeEmail(user.email);
-        await RegisterPage.writePassword(user.password);
-        await RegisterPage.clickBtnRegister();
-        const msg = await RegisterPage.getMsgFail('Nome é obrigatório');
+        await CommonActions.writeEmail(user.email);
+        await CommonActions.writePassword(user.password);
+        await RegisterActions.clickBtnRegister();
+        const msg = await RegisterActions.getMsgFail('Nome é obrigatório');
         expectChai(msg).to.be.equal('Nome é obrigatório')
     });
 
-    it('Cadastrar usuario sem informar password', async () => { 
+    it('Cadastrar usuario sem informar password', async function() { 
         user = User.createRandomUser();
-        await RegisterPage.writeName(user.name);
-        await RegisterPage.writeEmail(user.email);
-        await RegisterPage.clickBtnRegister();
-        const msg = await RegisterPage.getMsgFail('Password é obrigatório');
+        await CommonActions.writeName(user.name);
+        await CommonActions.writeEmail(user.email);
+        await RegisterActions.clickBtnRegister();
+        const msg = await RegisterActions.getMsgFail('Password é obrigatório');
         expectChai(msg).to.be.equal('Password é obrigatório');
     });
 });

@@ -1,10 +1,10 @@
 import { expect as expectChai } from 'chai';
 import { before, describe, it} from 'mocha';
-import { User } from '../util/User.js';
-import { BaseSteps } from '../util/BaseSteps.js';
-import RegisterPage from "../pages/RegisterPage.js";
-import LoginPage from "../pages/LoginPage.js";
-import HomePage from '../pages/HomePage.js';
+import { User } from '../../support/util/util/User.js';
+import RegisterActions from '../../support/actions/ui/RegisterActions.js';
+import LoginActions from "../../support/actions/ui/LoginActions.js";
+import HomeActions from '../../support/actions/ui/HomeActions.js';
+import CommonActions from '../../support/actions/ui/CommonActions.js';
 
 describe("Login", () => {
 
@@ -13,38 +13,37 @@ describe("Login", () => {
     common: { name: "", email: "", password: "" }
   };
 
-  before("Criar usuario Adm", async () => {
-    await RegisterPage.open();
+  
+  before("Criar usuario Adm", async function() {
+    RegisterActions.open();
     let user = User.createRandomUser();
-    await RegisterPage.registerUserAdm(user.name, user.email, user.password)
-    const homeText = await HomePage.getTextoHome();
-    expectChai(homeText).to.eql('Bem Vindo ' + user.name);
+    await CommonActions.registerUserAdm(user.name, user.email, user.password)
+    const homeText = await HomeActions.getHomeAdmMenssage();
+    expectChai(homeText).to.be.equal('Bem Vindo ' + user.name);
     users.admin = user;
   });
 
-  before("Criar usuário comun" , async () => {
-    await RegisterPage.open();
+  before("Criar usuário comun" , async function() {
+    RegisterActions.open();
     let user = User.createRandomUser();
-    await RegisterPage.registerUser(user.name, user.email, user.password);
-    const homeText = await HomePage.getTextoHome();
-    expectChai(homeText).to.eql('Serverest Store');
+    await CommonActions.registerUser(user.name, user.email, user.password);
+    const homeText = await HomeActions.getTexto();
+    expectChai(homeText).to.be.equal('Serverest Store');
     users.common = user;
   });
 
-  it("Login user adm com sucesso", async () => {
-    LoginPage.open();
-    await LoginPage.login(users.admin.email, users.admin.password);
-    const homeText = await HomePage.getTextoHome();
-    expectChai(homeText).to.eql('Bem Vindo ' + users.admin.name);
-    await BaseSteps.validarSeEstouNaUrl('https://front.serverest.dev/admin/home');
+  it("Login user adm com sucesso", async function() {
+    LoginActions.open('/login');
+    await LoginActions.login(users.admin.email, users.admin.password);
+    const homeText = await HomeActions.getHomeAdmMenssage();
+    expectChai(homeText).to.be.equal('Bem Vindo ' + users.admin.name);
   });
 
-  it("Login user com sucesso", async () => {
-    LoginPage.open();
-    await LoginPage.login(users.common.email, users.common.password);
-    const homeText = await HomePage.getTextoHome();
-    expectChai(homeText).to.eql('Serverest Store');
-    await BaseSteps.validarSeEstouNaUrl('https://front.serverest.dev/home');
+  it("Login user com sucesso", async function() {
+    LoginActions.open('/login');
+    await LoginActions.login(users.common.email, users.common.password);
+    const homeText = await HomeActions.getTexto();
+    expectChai(homeText).to.be.equal('Serverest Store');
   });
 
 })

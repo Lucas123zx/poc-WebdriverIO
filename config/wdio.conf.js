@@ -31,7 +31,7 @@ export const config = {
         }]
     ],
     specs: [
-        '../e2e/specs/login.spec.js'
+        '../e2e/specs/**/*.js'
     ],
     // Patterns to exclude.
     exclude: [
@@ -214,7 +214,7 @@ export const config = {
     /**
      * Function to be executed before a test (in Mocha/Jasmine) starts.
      */
-    afterTest: async function (test, context, { error, result, duration, passed, retries }) {
+    afterTest: async function (test, context, { error }) {
         if (error) {
             await browser.takeScreenshot();
         }
