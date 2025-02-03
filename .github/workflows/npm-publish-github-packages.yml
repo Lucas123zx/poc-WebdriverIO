@@ -34,7 +34,7 @@ jobs:
           # Defina qualquer variável de ambiente necessária
           NODE_ENV: test
           BASE_URL: ${{ vars.BASE_URL }}
-        run: npm run test # Ajuste para o comando que inicia seus testes no WebdriverI
+        run: npm run wdio-run # Ajuste para o comando que inicia seus testes no WebdriverI
         continue-on-error: true   
 
       - name: List JSON reports
