@@ -32,8 +32,8 @@ jobs:
       - name: Run WebdriverIO Tests
         env:
           # Defina qualquer variável de ambiente necessária
-          NODE_ENV: test
-          BASE_URL: ${{ vars.BASE_URL }}
+          BASE_URL: ${{vars.BASE_URL}}
+          BASE_URL_API: ${{vars.BASE_URL_API}}
         run: npm run wdio-run # Ajuste para o comando que inicia seus testes no WebdriverI
         continue-on-error: true   
 
