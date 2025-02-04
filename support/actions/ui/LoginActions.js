@@ -16,7 +16,7 @@ class LoginActions extends Browser {
   };
 
   async visitUrl() {
-      return await super.open('login');
+      return await super.open('/login');
   }; 
 
 }
