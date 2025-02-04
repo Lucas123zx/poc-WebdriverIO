@@ -29,9 +29,6 @@ jobs:
       - name: Load .env variables
         run: echo "$(cat .env)" >> $GITHUB_ENV
 
-      - name: Print environment variables
-        run: cat $GITHUB_ENV
-
       - name: Run WebdriverIO Tests
         env:
           # Defina qualquer variável de ambiente necessária

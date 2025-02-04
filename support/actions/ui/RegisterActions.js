@@ -23,7 +23,7 @@ class RegisterActions extends Browser {
   };
 
   async open() {
-    return await super.open('/cadastrarusuarios');
+    return await super.open('cadastrarusuarios');
   };
 
 }
