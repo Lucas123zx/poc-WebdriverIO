@@ -18,6 +18,10 @@ export default class LoginPage {
         return $('button[data-testid="entrar"]') 
     };
 
+    get msgInvalid() {
+        return $('//span[normalize-space()="Email e/ou senha inválidos"]')
+    };
+
     get btnLinkRegister() { 
         return $('a[data-testid="cadastrar"]') 
     };

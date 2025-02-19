@@ -1,4 +1,10 @@
 import { browser } from '@wdio/globals';
+import fs from 'fs';
+import path from 'path';
+
+export let currentTestTitle = '';
+export let curretSpecFile = '';
+
 export const config = {
     //
     // ====================
@@ -25,8 +31,8 @@ export const config = {
         'spec',
         ['mochawesome', {
             outputDir: './reports/mochawesome/json',
-            outputFileFormat: function(opts) { 
-                return `results-${opts.cid}.json`; 
+            outputFileFormat: function (opts) {
+                return `results-${opts.cid}.json`;
             }
         }]
     ],
@@ -229,6 +235,19 @@ export const config = {
         if (error) {
             await browser.takeScreenshot();
         }
+    },
+
+    beforeTest: async function (test) {
+        const specFileName = path.basename(test.parent).replace(/\s+/g, '_');
+        const screenshotFolder = path.join(process.cwd(), 'screenshots', specFileName); // Define o caminho da pasta
+        if (!fs.existsSync(screenshotFolder)) {
+            fs.mkdirSync(screenshotFolder, { recursive: true }); // Cria a pasta
+            console.log(`📂 Pasta criada: ${screenshotFolder}`);
+        } else {
+            console.log(`✅ A pasta já existe: ${screenshotFolder}`);
+        }
+        currentTestTitle = test.title;
+        curretSpecFile = specFileName;
     },
     // beforeTest: function (test, context) {
     // },

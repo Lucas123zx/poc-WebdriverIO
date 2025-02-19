@@ -7,14 +7,19 @@ class HomeActions extends HomePage {
     return text;
   };
 
-  async getHomeAdmMenssage() {
-    await this.cards.isDisplayed();
+  async getTitleHomeAdm() {
+    await this.cards.waitForDisplayed();
     return await this.getTexto();
   };
-
+  
+  async getTitleHome() {
+    await this.listProducts.waitForDisplayed();
+    return await this.getTexto();
+  };
+  
   async clickRegisterUser() {
     await this.linkRegister.click();
-  }
+  };
   
 }
 

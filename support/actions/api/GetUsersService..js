@@ -1,19 +1,29 @@
-import axios from 'axios';
-import 'dotenv/config';
 import types from '../../../types';
+import axios from 'axios';
+import BaseAPI from '../base/BaseAPI';
 
-class GetUserService {
+class GetUserService extends BaseAPI {
 
   async getAllUsers() {
-    const response = await axios.get(`${process.env.BASE_URL_API}${types.apiEndpoints.users}`)
+    const response = await axios.get(super.urlCreator(types.apiEndpoints.users));
     return response.data;
+  };
+
+  async getUserAdm() {
+    const users = await this.getAllUsers();
+    let user = users.usuarios;
+    for(const index in user) {
+      if(user[index].administrador === 'true') {
+        return user[index];
+      }
+    };
   };
 
   async getUser() {
     const users = await this.getAllUsers();
     let user = users.usuarios;
     for(const index in user) {
-      if(user[index].administrador === 'true') {
+      if(user[index].administrador !== 'true') {
         return user[index];
       }
     };

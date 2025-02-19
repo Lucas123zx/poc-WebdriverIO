@@ -15,6 +15,12 @@ class LoginActions extends Browser {
       await loginPage.btnLinkRegister.click();
   };
 
+  async getTextInvalid() {
+    await loginPage.msgInvalid.waitForDisplayed();
+    let msg = await loginPage.msgInvalid.getText();
+    return msg
+  }
+
   async visitUrl() {
       return await super.open('/login');
   }; 

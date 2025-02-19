@@ -7,7 +7,15 @@ export default class HomePage {
   };
 
   get cards() { 
-    return $('div[class="col-md-2"]') 
+    return $('div[class="card"') 
+  };
+
+  get lead() {
+    return $('p[class="lead"]')
+  }
+  
+  get listProducts() {
+    return $('section[class="row espacamento"]')
   };
 
   get navbar() { 
