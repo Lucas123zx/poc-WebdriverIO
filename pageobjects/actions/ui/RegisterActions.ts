@@ -1,10 +1,10 @@
-import { Browser } from "../../browser/Browser";
 import RegisterPage  from "../../pages/RegisterPage";
 import Common from "../../pages/common/Common";
 
 const registerPage = new RegisterPage();
 const commonPage = new Common();
-class RegisterActions extends Browser {
+
+class RegisterActions  {
 
   async clickBtnRegister() {
     await commonPage.btnRegister.click();
@@ -12,7 +12,7 @@ class RegisterActions extends Browser {
 
   async getMsgSucess() {
     await registerPage.msgSuccess.isDisplayed();
-    const msgSucess = await this.msgSuccess.getText();
+    const msgSucess = await registerPage.msgSuccess.getText();
     return msgSucess;
   };
 
@@ -22,9 +22,6 @@ class RegisterActions extends Browser {
     return msgFail;
   };
 
-  async open() {
-    return await super.open('/cadastrarusuarios');
-  };
 
 }
 

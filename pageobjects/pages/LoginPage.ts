@@ -2,27 +2,27 @@ import { $ } from '@wdio/globals';
 
 export default class LoginPage {
 
-    get inputUsername() { 
+    public get inputUsername() { 
         return $('#nome') 
     };
 
-    get inputEmail() { 
+    public get inputEmail() { 
         return $('#email') 
     };
 
-    get inputPassword() { 
+    public get inputPassword() { 
         return $('#password') 
     };
 
-    get btnLogin() { 
+    public get btnLogin() { 
         return $('button[data-testid="entrar"]') 
     };
 
-    get msgInvalid() {
+    public get msgInvalid() {
         return $('//span[normalize-space()="Email e/ou senha inválidos"]')
     };
 
-    get btnLinkRegister() { 
+    public get btnLinkRegister() { 
         return $('a[data-testid="cadastrar"]') 
     };
    

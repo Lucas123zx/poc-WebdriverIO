@@ -5,13 +5,14 @@ import path from 'path';
 export let currentTestTitle = '';
 export let curretSpecFile = '';
 
-export const config = {
+export const config: WebdriverIO.Config = {
     //
     // ====================
     // Runner Configuration
     // ====================
     // WebdriverIO supports running e2e tests as well as unit and component tests.
     runner: 'local',
+    tsConfigPath: './tsconfig.json',
     //
     // ==================
     // Specify Test Files
@@ -37,7 +38,7 @@ export const config = {
         }]
     ],
     specs: [
-        '../e2e/specs/**/*.js'
+        '../e2e/specs/**/*.ts'
     ],
     // Patterns to exclude.
     exclude: [
@@ -159,7 +160,6 @@ export const config = {
     mochaOpts: {
         ui: 'bdd',
         timeout: 60000,
-        require: "@babel/register"
     },
     //
     // =====

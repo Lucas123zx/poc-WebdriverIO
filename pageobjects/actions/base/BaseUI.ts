@@ -6,9 +6,13 @@ class BaseUI {
   async screenshot() {
     let testTitle = currentTestTitle.replace(/\s+/g , '_');
     await browser.saveScreenshot(`./screenshots/${curretSpecFile}/${testTitle}.png`);
-  }
+  };
 
-  
+  public open(path: string) {
+    return browser.url(`${process.env.BASE_URL}${path}`);
+  };
+
+ 
 }
 
 export default new BaseUI();

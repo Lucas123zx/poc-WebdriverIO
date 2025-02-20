@@ -2,23 +2,23 @@ import { $ } from '@wdio/globals';
 
 export default class Common {
 
-  get inputName() {
+  public get inputName() {
     return $('#nome')
   };
   
-  get inputEmail() {
+  public get inputEmail() {
     return $('#email')
   };
   
-  get inputPassword() {
+  public get inputPassword() {
     return $('#password')
   };
 
-  get inputAdm() {
+  public get inputAdm() {
     return $('#administrador')
   };
 
-  get btnRegister() {
+  public get btnRegister() {
     return $('button[type="submit"]')
   };
 

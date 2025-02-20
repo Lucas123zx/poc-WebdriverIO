@@ -2,27 +2,27 @@ import { $ } from '@wdio/globals';
 
 export default class HomePage {
 
-  get title() {
+  public get title() {
     return $('h1')
   };
 
-  get cards() { 
+  public get cards() { 
     return $('div[class="card"') 
   };
 
-  get lead() {
+  public get lead() {
     return $('p[class="lead"]')
-  }
+  };
   
-  get listProducts() {
+  public get listProducts() {
     return $('section[class="row espacamento"]')
   };
 
-  get navbar() { 
+  public get navbar() { 
     return $('ul[class="navbar-nav mr-auto mt-2 mt-lg-0"]') 
   };
 
-  get linkRegister() { 
+  public get linkRegister() { 
     return $('a[data-testid="cadastrar-usuarios"]') 
   };
 

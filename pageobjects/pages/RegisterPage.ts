@@ -2,12 +2,12 @@ import { $ } from '@wdio/globals';
 
 export default class RegisterPage  {
 
-    get msgSuccess() {
+    public get msgSuccess() {
         return $('a[class="alert-link"]')
     };
 
-    msgFail(texto) {
-        return $(`//span[text()="${texto}"]`);
+    public msgFail(text: string) {
+        return $(`//span[text()="${text}"]`);
     };
     
 }
