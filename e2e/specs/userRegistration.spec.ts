@@ -1,26 +1,31 @@
-import { before, describe, it } from "mocha";
-import { User } from '../../pageobjects/util/User.js';
-import GetUsersService from "../../pageobjects/actions/api/GetUsersService..js";
-import CommonActions from "../../pageobjects/actions/ui/CommonActions.js";
-import HomeActions from "../../pageobjects/actions/ui/HomeActions.js";
-import LoginActions from "../../pageobjects/actions/ui/LoginActions.js";
-import BaseUI from "../../pageobjects/actions/base/BaseUI.js";
+import { before, describe, it } from 'mocha';
+import { expect as expectChai } from 'chai';
+import { Users } from '../../pageobjects/util/Users.js';
+import GetUsersService from '../../pageobjects/actions/api/GetUsersService.js';
+import CommonPage from '../../pageobjects/page/CommonPage.js';
+import HomePage from '../../pageobjects/page/HomePage.js';
+import LoginPage from '../../pageobjects/page/LoginPage.js';
+import BasePage from '../../pageobjects/page/base/BasePage.js';
+import ListUserPage from '../../pageobjects/page/ListUserPage.js'
+import { User } from '../../models/Users.js';
 
-describe("Register user in profile admin", () => {
+describe('Register user in profile admin', () => {
 
-  let user: any;
+  let user: User;
 
-  before("Login-in System with user admin", async () => {
+  before('Login-in system with user admin', async () => {
     user = await GetUsersService.getUserAdm();
-    BaseUI.open('/login');
-    await LoginActions.login(user.email, user.password);
+    BasePage.open("/login");
+    await LoginPage.login(user.email, user.password);
   });
 
-  it.only('register user sucess', async () => {
-    let newUser = User.createRandomUser();
-    await HomeActions.clickRegisterUser();
-    await CommonActions.registerUser(newUser.getName(), newUser.getEmail(), newUser.getPasswrod());
-    await BaseUI.screenshot();
+  it('register user sucess', async () => {
+    let newUser = new Users("false"); 
+    await HomePage.clickRegisterUser();
+    await CommonPage.registerUser(newUser.nome, newUser.email, newUser.password);
+    let newUserData = await ListUserPage.findUser(newUser.nome, newUser.email);
+    expect(newUser.nome).toEqual(newUserData?.nome);
+    await BasePage.screenshot();
   });
 
 });

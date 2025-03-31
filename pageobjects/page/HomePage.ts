@@ -1,6 +1,6 @@
-import HomePage from "../../pages/HomePage";
+import HomeElements from '../elements/HomeElements';
 
-class HomeActions extends HomePage {
+class HomePage extends HomeElements {
 
   async getTexto() {
     let text = this.title.getText();
@@ -23,4 +23,4 @@ class HomeActions extends HomePage {
   
 }
 
-export default new HomeActions();
+export default new HomePage();

@@ -1,9 +1,9 @@
-import LoginPage from "../../pages/LoginPage";
+import LoginElements from '../elements/LoginElements';
 
 
-class LoginActions extends LoginPage {
+class LoginPage extends LoginElements {
 
-  async login (email, password) {
+  async login (email: string, password: string) {
     await this.inputEmail.addValue(email);
     await this.inputPassword.addValue(password);
     await this.btnLogin.click();
@@ -21,4 +21,4 @@ class LoginActions extends LoginPage {
 
 }
 
-export default new LoginActions();
+export default new LoginPage();

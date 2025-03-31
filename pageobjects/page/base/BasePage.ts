@@ -1,7 +1,7 @@
 import { browser } from '@wdio/globals';
 import { currentTestTitle, curretSpecFile} from '../../../config/wdio.conf';
 
-class BaseUI {
+class BasePage {
 
   async screenshot() {
     let testTitle = currentTestTitle.replace(/\s+/g , '_');
@@ -12,7 +12,11 @@ class BaseUI {
     return browser.url(`${process.env.BASE_URL}${path}`);
   };
 
+  public getUrl() {
+    return browser.getUrl();
+  }
+
  
 }
 
-export default new BaseUI();
+export default new BasePage();

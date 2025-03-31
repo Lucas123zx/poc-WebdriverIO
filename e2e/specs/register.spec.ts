@@ -1,83 +1,84 @@
 import {expect as expectChai} from 'chai';
 import { beforeEach, describe, it } from 'mocha';
-import { User } from '../../pageobjects/util/User.js';
-import RegisterActions from '../../pageobjects/actions/ui/RegisterActions.js';
-import CommonActions from '../../pageobjects/actions/ui/CommonActions.js';
-import HomeActions from '../../pageobjects/actions/ui/HomeActions.js';
-import BaseUI from '../../pageobjects/actions/base/BaseUI.js';
+import { Users } from '../../pageobjects/util/Users.js';
+import { User } from '../../models/Users.js';
+import RegisterPage from '../../pageobjects/page/RegisterPage.js';
+import CommonPage from '../../pageobjects/page/CommonPage.js';
+import HomePage from '../../pageobjects/page/HomePage.js';
+import BasePage from '../../pageobjects/page/base/BasePage.js';
 
 describe('Register user', () => {
 
-    let userRegistered: any;
-    let user: any;
+    let userRegistered: User;
+    let user: User;
 
     beforeEach(async () => {
-        BaseUI.open('/cadastrarusuarios');
+        BasePage.open("/cadastrarusuarios");
     });
 
     it('Register user adm with sucess', async function() { 
-        user = User.createRandomUser();
-        userRegistered = {name: user.getName(), email: user.getEmail(), password: user.getPasswrod()};
-        await CommonActions.writeName(user.getName());
-        await CommonActions.writeEmail(user.getEmail());
-        await CommonActions.writePassword(user.getPasswrod());
-        await CommonActions.clickBtnAdm();
-        await RegisterActions.clickBtnRegister();
-        const homeText = await HomeActions.getTitleHomeAdm();
-        expectChai(homeText).to.be.equal('Bem Vindo ' + user.getName());
-        await BaseUI.screenshot();
+        user = new Users("true");
+        userRegistered = {nome: user.nome, email: user.email, password: user.password, administrador: user.administrador};
+        await CommonPage.writeName(user.nome);
+        await CommonPage.writeEmail(user.email);
+        await CommonPage.writePassword(user.password);
+        await CommonPage.clickBtnAdm();
+        await RegisterPage.clickBtnRegister();
+        const homeText = await HomePage.getTitleHomeAdm();
+        expectChai(homeText).to.be.equal("Bem Vindo " + user.nome);
+        await BasePage.screenshot();
     });
 
     it('Register user common with sucess', async function() { 
-        user = User.createRandomUser();
-        await CommonActions.writeName(user.getName());
-        await CommonActions.writeEmail(user.getEmail());
-        await CommonActions.writePassword(user.getPasswrod());
-        await RegisterActions.clickBtnRegister();
-        const homeText = await HomeActions.getTitleHome();
-        expectChai(homeText).to.be.equal('Serverest Store');
-        await BaseUI.screenshot();
+        user = new Users("false");
+        await CommonPage.writeName(user.nome);
+        await CommonPage.writeEmail(user.email);
+        await CommonPage.writePassword(user.password);
+        await RegisterPage.clickBtnRegister();
+        const homeText = await HomePage.getTitleHome();
+        expectChai(homeText).to.be.equal("Serverest Store");
+        await BasePage.screenshot();
     });
     
     it('Register user with credential email link other account', async function() { 
         user = userRegistered; 
-        await CommonActions.writeName(user.name);
-        await CommonActions.writeEmail(user.email);
-        await CommonActions.writePassword(user.password);
-        await RegisterActions.clickBtnRegister();
-        const msg = await RegisterActions.getMsgFail('Este email já está sendo usado');
-        expectChai(msg).to.be.equal('Este email já está sendo usado');
-        await BaseUI.screenshot();
+        await CommonPage.writeName(user.nome);
+        await CommonPage.writeEmail(user.email);
+        await CommonPage.writePassword(user.password);
+        await RegisterPage.clickBtnRegister();
+        const msg = await RegisterPage.getMsgFail("Este email já está sendo usado");
+        expectChai(msg).to.be.equal("Este email já está sendo usado");
+        await BasePage.screenshot();
     });
 
     it('Register user not inform email', async function() { 
-        user = User.createRandomUser();
-        await CommonActions.writeName(user.getName());
-        await CommonActions.writePassword(user.getPasswrod());
-        await RegisterActions.clickBtnRegister();
-        const msg = await RegisterActions.getMsgFail('Email é obrigatório');
-        expectChai(msg).to.be.equal('Email é obrigatório');
-        await BaseUI.screenshot();
+        user = new Users('false');
+        await CommonPage.writeName(user.nome);
+        await CommonPage.writePassword(user.password);
+        await RegisterPage.clickBtnRegister();
+        const msg = await RegisterPage.getMsgFail("Email é obrigatório");
+        expectChai(msg).to.be.equal("Email é obrigatório");
+        await BasePage.screenshot();
     });
     
     it('Register user not inform name', async function() { 
-        user = User.createRandomUser();
-        await CommonActions.writeEmail(user.getEmail());
-        await CommonActions.writePassword(user.getPasswrod());
-        await RegisterActions.clickBtnRegister();
-        const msg = await RegisterActions.getMsgFail('Nome é obrigatório');
-        expectChai(msg).to.be.equal('Nome é obrigatório');
-        await BaseUI.screenshot();
+        user = new Users('false');
+        await CommonPage.writeEmail(user.email);
+        await CommonPage.writePassword(user.password);
+        await RegisterPage.clickBtnRegister();
+        const msg = await RegisterPage.getMsgFail("Nome é obrigatório");
+        expectChai(msg).to.be.equal("Nome é obrigatório");
+        await BasePage.screenshot();
     });
 
     it('Register user not inform password', async function() { 
-        user = User.createRandomUser();
-        await CommonActions.writeName(user.getName());
-        await CommonActions.writeEmail(user.getEmail());
-        await RegisterActions.clickBtnRegister();
-        const msg = await RegisterActions.getMsgFail('Password é obrigatório');
-        expectChai(msg).to.be.equal('Password é obrigatório');
-        await BaseUI.screenshot();
+        user = new Users('false');
+        await CommonPage.writeName(user.nome);
+        await CommonPage.writeEmail(user.email);
+        await RegisterPage.clickBtnRegister();
+        const msg = await RegisterPage.getMsgFail("Password é obrigatório");
+        expectChai(msg).to.be.equal("Password é obrigatório");
+        await BasePage.screenshot();
     });
 });
 

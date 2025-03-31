@@ -1,59 +1,50 @@
 import { expect as expectChai } from 'chai';
 import { before, describe, it} from 'mocha';
-import { User } from '../../pageobjects/util/User.js';
-import RegisterActions from '../../pageobjects/actions/ui/RegisterActions.js';
-import LoginActions from "../../pageobjects/actions/ui/LoginActions.js";
-import HomeActions from '../../pageobjects/actions/ui/HomeActions.js';
-import CommonActions from '../../pageobjects/actions/ui/CommonActions.js';
-import BaseUI from '../../pageobjects/actions/base/BaseUI.js';
+import { User } from '../../models/Users.js';
+import PostUserService from '../../pageobjects/actions/api/PostUserService.js';
+import testData from '../../fixtures/api/post.fixture.js';
+import LoginPage from '../../pageobjects/page/LoginPage.js';
+import HomePage from '../../pageobjects/page/HomePage.js';
+import BasePage from '../../pageobjects/page/base/BasePage.js';
 
-describe("Login", () => {
+describe('Login', () => {
 
-  let admin: any; 
-  let common: any; 
+  let admin: User; 
+  let common: User; 
 
   
-  before("Create user Adm", async function() {
-    BaseUI.open('/cadastrarusuarios');
-    let user = User.createRandomUser();
-    await CommonActions.registerUserAdm(user.getName(), user.getEmail(), user.getPasswrod())
-    const homeText = await HomeActions.getTitleHomeAdm();
-    expectChai(homeText).to.be.equal('Bem Vindo ' + user.getName());
-    admin = {name: user.getName(), email: user.getEmail(), password: user.getPasswrod()};
+  before('Create user Adm', async function() {
+    await PostUserService.createUser(testData.dataUserAdmin);
+    admin = testData.dataUserAdmin;
   });
 
-  before("Create user commun" , async function() {
-    BaseUI.open('/cadastrarusuarios');
-    let user = User.createRandomUser();
-    await CommonActions.registerUser(user.getName(), user.getEmail(), user.getPasswrod());
-    const homeText = await HomeActions.getTitleHome();
-    expectChai(homeText).to.be.equal('Serverest Store');
-    common = {name: user.getName(), email: user.getEmail(), password: user.getPasswrod()};
-    console.log("Aq Estou eu" + common.name)
+  before('Create user commun'  , async function() {
+    await PostUserService.createUser(testData.dataUser);
+    common = testData.dataUser;
   });
 
-  it("Login user adm with sucess", async function() {
-    BaseUI.open('/login');
-    await LoginActions.login(admin.email, admin.password);
-    const homeText = await HomeActions.getTitleHomeAdm();
-    expectChai(homeText).to.be.equal('Bem Vindo ' + admin.name);
-    await BaseUI.screenshot();
+  it('Login user adm with sucess' , async function() {
+    BasePage.open("/login");
+    await LoginPage.login(admin.email, admin.password);
+    const homeText = await HomePage.getTitleHomeAdm();
+    expectChai(homeText).to.be.equal("Bem Vindo "  + admin.nome);
+    await BasePage.screenshot();
   });
 
-  it("Login user with sucess", async function() {
-    BaseUI.open('/login');
-    await LoginActions.login(common.email, common.password);
-    const homeText = await HomeActions.getTitleHome();
-    expectChai(homeText).to.be.equal('Serverest Store');
-    await BaseUI.screenshot();
+  it('Login user with sucess' , async function() {
+    BasePage.open("/login");
+    await LoginPage.login(common.email, common.password);
+    const homeText = await HomePage.getTitleHome();
+    expectChai(homeText).to.be.equal("Serverest Store");
+    await BasePage.screenshot();
   });
 
-  it("Login user with credential invalid", async function() {
-    BaseUI.open('/login');
-    await LoginActions.login(common.email, '@#' );
-    let msg = await LoginActions.getTextInvalid();
-    expectChai(msg).to.be.equal('Email e/ou senha inválidos');
-    await BaseUI.screenshot();
+  it('Login user with credential invalid' , async function() {
+    BasePage.open("/login");
+    await LoginPage.login(common.email, "@#");
+    let msg = await LoginPage.getTextInvalid();
+    expectChai(msg).to.be.equal("Email e/ou senha inválidos");
+    await BasePage.screenshot();
   });
 
 })

@@ -1,6 +1,6 @@
 import { $ } from '@wdio/globals';
 
-export default class LoginPage {
+export default class LoginElements {
 
     public get inputUsername() { 
         return $('#nome') 

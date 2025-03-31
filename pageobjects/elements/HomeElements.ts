@@ -1,6 +1,6 @@
 import { $ } from '@wdio/globals';
 
-export default class HomePage {
+export default class HomeElements {
 
   public get title() {
     return $('h1')

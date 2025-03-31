@@ -1,16 +1,16 @@
-import CommonPage from "../../pages/common/Common"
+import CommonElements from '../elements/common/CommonElements';
 
-class CommonActions extends CommonPage {
+class CommonPage extends CommonElements {
 
-  async writeName(name) {
+  async writeName(name: string){
     await this.inputName.addValue(name);
   };
 
-  async writeEmail(email) {
+  async writeEmail(email: string) {
     await this.inputEmail.addValue(email);
   };
 
-  async writePassword(password) {
+  async writePassword(password: string) {
     await this.inputPassword.addValue(password);
   };
 
@@ -18,14 +18,14 @@ class CommonActions extends CommonPage {
     await this.inputAdm.click();
   };
 
-  async registerUser(name, email, password) {
+  async registerUser(name: string, email: string, password: string) {
     await this.inputName.addValue(name);
     await this.inputEmail.addValue(email);
     await this.inputPassword.addValue(password);
     await this.btnRegister.click();
   };
 
-  async registerUserAdm(name, email, password) {
+  async registerUserAdm(name: string, email: string, password: string) {
     await this.inputName.addValue(name);
     await this.inputEmail.addValue(email);
     await this.inputPassword.addValue(password);
@@ -35,4 +35,4 @@ class CommonActions extends CommonPage {
 
 }
 
-export default new CommonActions();
+export default new CommonPage();

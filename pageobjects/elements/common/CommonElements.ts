@@ -1,6 +1,6 @@
 import { $ } from '@wdio/globals';
 
-export default class Common {
+export default class CommonElements {
 
   public get inputName() {
     return $('#nome')
