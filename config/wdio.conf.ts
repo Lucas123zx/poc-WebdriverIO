@@ -1,11 +1,18 @@
-exports.config = {
-    
+import { browser } from '@wdio/globals';
+import * as fs from 'fs';
+import * as path from 'path';
+
+export let currentTestTitle = '';
+export let curretSpecFile = '';
+
+export const config: WebdriverIO.Config = {
     //
     // ====================
     // Runner Configuration
     // ====================
     // WebdriverIO supports running e2e tests as well as unit and component tests.
     runner: 'local',
+    tsConfigPath: './tsconfig.json',
     //
     // ==================
     // Specify Test Files
@@ -25,13 +32,13 @@ exports.config = {
         'spec',
         ['mochawesome', {
             outputDir: './reports/mochawesome/json',
-            outputFileFormat: function(opts) { 
-                return `results-${opts.cid}.json`; 
+            outputFileFormat: function (opts) {
+                return `results-${opts.cid}.json`;
             }
         }]
     ],
     specs: [
-        '../e2e/specs/**/*.js'
+        '../e2e/specs/**/*.ts'
     ],
     // Patterns to exclude.
     exclude: [
@@ -61,7 +68,8 @@ exports.config = {
     //
     capabilities: [{
         // capabilities for local browser web tests
-        browserName: 'chrome' // or "firefox", "microsoftedge", "safari"
+        browserName: 'chrome',
+        acceptInsecureCerts: true
     }],
 
     //
@@ -141,7 +149,6 @@ exports.config = {
     mochaOpts: {
         ui: 'bdd',
         timeout: 60000,
-        require: "@babel/register"
     },
     //
     // =====
@@ -213,11 +220,24 @@ exports.config = {
     /**
      * Function to be executed before a test (in Mocha/Jasmine) starts.
      */
-    afterTest: async function (test, context, { error, result, duration, passed, retries }) {
+    afterTest: async function (test, context, { error }) {
         if (error) {
             await browser.takeScreenshot();
         }
     },
+
+    beforeTest: async function (test) {
+        const specFileName = path.basename(test.parent).replace(/\s+/g , '_');
+        const screenshotFolder = path.join(process.cwd(), 'screenshots', specFileName); // Define o caminho da pasta
+        if (!fs.existsSync(screenshotFolder)) {
+            fs.mkdirSync(screenshotFolder, { recursive: true }); // Cria a pasta
+            console.log(`📂 Pasta criada: ${screenshotFolder}`);
+        } else {
+            console.log(`✅ A pasta já existe: ${screenshotFolder}`);
+        }
+        currentTestTitle = test.title;
+        curretSpecFile = specFileName;
+    },  
     // beforeTest: function (test, context) {
     // },
     /**

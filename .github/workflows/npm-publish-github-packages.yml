@@ -3,54 +3,59 @@ name: Run WebdriverIO Tests
 on:
   push:
     branches:
-      - master
-      - develop
+    - master
+    - develop
   pull_request:
     branches:
-      - master
-      - develop
+    - master
+    - develop
 
 jobs:
-  test:
+  test-e2e:
     runs-on: ubuntu-latest
-    
-    # Defina os serviços necessários, por exemplo, se precisa do Chrome
-    services:
-      selenium:
-        image: selenium/standalone-chrome
-        ports:
-          - 4444:4444
 
     steps:
-      - name: Check out code
-        uses: actions/checkout@v2
+    - name: Check out code
+      uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
 
-      - name: Install dependencies
-        run: npm install
+    - name: Install dependencies
+      run: npm install
 
-      - name: Load .env variables
-        run: echo "$(cat .env)" >> $GITHUB_ENV
+    - name: Load .env variables
+      run: echo "$(cat .env)" >> $GITHUB_ENV
 
-      - name: Run WebdriverIO Tests
-        env:
-          # Defina qualquer variável de ambiente necessária
-          NODE_ENV: test
-          BASE_URL: ${{ vars.BASE_URL }}
-        run: npm run test # Ajuste para o comando que inicia seus testes no WebdriverI
+    - name: Run WebdriverIO Tests
+      run: npm run wdio-run # Ajuste para o comando que inicia seus testes no WebdriverI
+      env:
+        # Defina qualquer variável de ambiente necessária
+        BASE_URL: ${{ env.BASE_URL }}
+        BASE_URL_API: ${{ env.BASE_URL_API }}
+        EMAIL_USER: ${{ env.EMAIL_USER }}
+        PASSWORD_USER: ${{ env.PASSWORD_USER }}
+      continue-on-error: true
 
-      - name: Merge Report
-        run: npm run merge-reports # Ajuste ao comando de merge que você usa para o Mochawesom
+    - name: List JSON reports
+      run: ls ./reports/mochawesome/json/
 
-      - name: Generate Mochawesome Report
-        run: npm run generate-mocha # Ajuste ao comando de merge que você usa para o Mochawesome
+    - name: Merge Report
+      run: npm run merge-reports # Ajuste ao comando de merge que você usa para o Mochawesom
 
-      - name: Upload Report
-        uses: actions/upload-artifact@v3
-        with:
-          name: mochawesome-report
-          path: ./reports/mochawesome/json/combined-report.json
+    - name: Check combined JSON report
+      run: cat ./reports/mochawesome/json/combined-report.json
+
+    - name: Generate Mochawesome Report
+      run: npm run generate-mocha # Ajuste ao comando de merge que você usa para o Mochawesome
+
+    - name: Check HTML report content
+      run: cat ./reports/mochawesome/html/mochawesome-report.html
+
+    - name: Upload Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: mochawesome-report
+        path: ./reports/mochawesome/html
