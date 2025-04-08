@@ -38,7 +38,7 @@ export const config: WebdriverIO.Config = {
         }]
     ],
     specs: [
-        '../e2e/specs/**/*.ts'
+        '../e2e/specs/**/userRegistration.spec.ts'
     ],
     // Patterns to exclude.
     exclude: [

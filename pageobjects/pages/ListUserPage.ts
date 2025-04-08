@@ -12,6 +12,7 @@ class ListUserPage {
 
   async findUser(nameUser: string, emailUser: string) {
     await this.waitListDisplayed();
+    
     let elements = listUsersElements.list;
     let users = await elements.map(async (user) => {
       let namesUsersTexts = await user.$('td:nth-child(1)').getText();
@@ -25,8 +26,8 @@ class ListUserPage {
           email: emailsUsersTexts,
           password: passwordsUsersTexts, 
           administrador: profileUsersTexts
-        } ;      
-        
+        };      
+
         return foundUser;
       } else { 
         return null;
@@ -34,7 +35,6 @@ class ListUserPage {
     });
 
     return users.find(user => user !== null);
-
   };
  
 }

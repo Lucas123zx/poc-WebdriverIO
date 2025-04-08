@@ -10,7 +10,7 @@ class LoginPage extends LoginElements {
   };
 
   async clickButtonRegister(){
-      await this.btnLinkRegister.click();
+    await this.btnLinkRegister.click();
   };
 
   async getTextInvalid() {

@@ -3,27 +3,27 @@ import { $ } from '@wdio/globals';
 export default class LoginElements {
 
     public get inputUsername() { 
-        return $('#nome') 
+        return $('#nome');
     };
 
     public get inputEmail() { 
-        return $('#email') 
+        return $('#email');
     };
 
     public get inputPassword() { 
-        return $('#password') 
+        return $('#password'); 
     };
 
     public get btnLogin() { 
-        return $('button[data-testid="entrar"]') 
+        return $('button[data-testid="entrar"]'); 
     };
 
     public get msgInvalid() {
-        return $('//span[normalize-space()="Email e/ou senha inválidos"]')
+        return $('//span[normalize-space()="Email e/ou senha inválidos"]');
     };
 
     public get btnLinkRegister() { 
-        return $('a[data-testid="cadastrar"]') 
+        return $('a[data-testid="cadastrar"]'); 
     };
    
 }

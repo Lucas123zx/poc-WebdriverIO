@@ -1,20 +1,16 @@
 import HomeElements from '../elements/HomeElements';
+import BasePage from './base/BasePage';
 
 class HomePage extends HomeElements {
 
-  async getTexto() {
-    let text = this.title.getText();
-    return text;
-  };
-
   async getTitleHomeAdm() {
     await this.cards.waitForDisplayed();
-    return await this.getTexto();
+    return await BasePage.getText(await this.title);
   };
   
   async getTitleHome() {
     await this.listProducts.waitForDisplayed();
-    return await this.getTexto();
+    return await BasePage.getText(await this.title);
   };
   
   async clickRegisterUser() {

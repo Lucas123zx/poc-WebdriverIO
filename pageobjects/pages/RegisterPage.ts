@@ -1,3 +1,4 @@
+import { $ } from '@wdio/globals';
 import RegisterElements  from '../elements/RegisterElements';
 import Common from '../elements/common/CommonElements';
 
@@ -16,12 +17,11 @@ class RegisterPage  {
     return msgSucess;
   };
 
-  async getMsgFail(texto: string) {
-    registerElements.msgFail(texto).isDisplayed();
-    const msgFail = await registerElements.msgFail(texto).getText();
+  async getMsgFail(element: string) {
+    $(`//span[text()="${element}"]`).waitForDisplayed();
+    const msgFail = $(`//span[text()="${element}"]`).getText();
     return msgFail;
   };
-
 
 }
 
