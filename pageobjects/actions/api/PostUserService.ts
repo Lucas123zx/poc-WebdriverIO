@@ -8,7 +8,7 @@ interface Body {
   email: string,
   password: string,
   administrador: string
-};
+}
 
 class PostUserService extends BaseAPI {
 
@@ -17,9 +17,9 @@ class PostUserService extends BaseAPI {
       console.log(response.status);
       console.log(response.statusText);
     });
-  };
+  }
 
 
-};
+}
 
 export default new PostUserService();

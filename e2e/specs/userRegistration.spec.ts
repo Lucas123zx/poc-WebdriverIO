@@ -10,9 +10,10 @@ import ListUserPage from '../../pageobjects/pages/ListUserPage.js';
 import UserRegistrationPage from '../../pageobjects/pages/UserRegistrationPage.js';
 import { expect } from 'expect-webdriverio';
 
-describe('Register user in profile admin', () => {
+describe('Register new user in profile admin', () => {
 
   let user: User;
+  const requiredPasswordMsg = "Password é obrigatório";
 
   before('Login-in system with user admin', async () => {
     user = await GetUsersService.getUserAdm();
@@ -20,22 +21,42 @@ describe('Register user in profile admin', () => {
     await LoginPage.login(user.email, user.password);
   });
 
-  it('Should be register user sucess', async () => {
-    let newUser = new Users("false"); 
+  it('Should register a user sucessfully', async () => {
+    const newUser = new Users("userAdm"); 
+
     await HomePage.clickRegisterUser();
     await CommonPage.registerUser(newUser.nome, newUser.email, newUser.password);
+
     let newUserData = await ListUserPage.findUser(newUser.nome, newUser.email);
     expect(newUser.nome).toEqual(newUserData!.nome);
+
     await BasePage.screenshot();
   });
 
   it('Should be visible alert with text "Password é obrigatório" when registering a user', async () => {
-    let newUser = new Users("false"); 
-    newUser.password = ''
+    let newUser = new Users("user"); 
+
+    newUser.password = '';
+    
     await HomePage.clickRegisterUser();
     await CommonPage.registerUser(newUser.nome, newUser.email, newUser.password);
-    let alertError = await UserRegistrationPage.getTextAlert("Password é obrigatório");
-    expect(alertError).toEqual('Password é obrigatório'); 
+
+    let alertError = await UserRegistrationPage.getTextAlert(requiredPasswordMsg);
+    expect(alertError).toEqual(requiredPasswordMsg); 
   });
+
+
+  it('Should be visible alert with text "Email é obrigatório" when registering a user', async () => {
+    let newUser = new Users("user"); 
+
+    newUser.email = '';
+    
+    await HomePage.clickRegisterUser();
+    await CommonPage.registerUser(newUser.nome, newUser.email, newUser.password);
+
+    let alertError = await UserRegistrationPage.getTextAlert(requiredPasswordMsg);
+    expect(alertError).toEqual(requiredPasswordMsg); 
+  });
+
 
 });

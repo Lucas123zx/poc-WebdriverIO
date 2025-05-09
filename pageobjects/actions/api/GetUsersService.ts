@@ -8,7 +8,7 @@ class GetUserService extends BaseAPI {
   async getAllUsers() {
     const response = await axios.get(super.urlCreator(types.apiEndpoints.users));
     return response.data;
-  };
+  }
 
   async getUserAdm() {
     const response = await this.getAllUsers();
@@ -18,7 +18,7 @@ class GetUserService extends BaseAPI {
         return users[user];
       }
     };
-  };
+  }
 
   async getUser() {
     const response = await this.getAllUsers();
@@ -28,13 +28,13 @@ class GetUserService extends BaseAPI {
         return users[user];
       }
     };
-  };
+  }
 
   async getCountUser() {
     const response = await this.getAllUsers();
     let countUsers = response.qunatidades;
     return countUsers
-  };
+  }
 
 }
 

@@ -9,19 +9,19 @@ class RegisterPage  {
 
   async clickBtnRegister() {
     await commonElements.btnRegister.click();
-  };
+  }
 
   async getMsgSucess() {
     await registerElements.msgSuccess.isDisplayed();
     const msgSucess = await registerElements.msgSuccess.getText();
     return msgSucess;
-  };
+  }
 
   async getMsgFail(element: string) {
     $(`//span[text()="${element}"]`).waitForDisplayed();
     const msgFail = $(`//span[text()="${element}"]`).getText();
     return msgFail;
-  };
+  }
 
 }
 
