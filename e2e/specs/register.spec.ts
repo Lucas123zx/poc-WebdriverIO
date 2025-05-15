@@ -2,15 +2,20 @@ import {expect as expectChai} from 'chai';
 import { beforeEach, describe, it } from 'mocha';
 import { Users } from '../../pageobjects/util/Users.js';
 import { User } from '../../models/Users.js';
-import RegisterPage from '../../pageobjects/pages/RegisterPage.js';
-import CommonPage from '../../pageobjects/pages/CommonPage.js';
-import HomePage from '../../pageobjects/pages/HomePage.js';
-import BasePage from '../../pageobjects/pages/base/BasePage.js';
+import { RegisterPage } from '../../pageobjects/pages/RegisterPage.js';
+import { CommonPage } from '../../pageobjects/pages/CommonPage.js';
+import { HomePage } from '../../pageobjects/pages/HomePage.js';
+import { BaseActions } from '../../pageobjects/actions/base/BaseAction.js';
 
 describe('Register user', () => {
 
+    let commonPage = new CommonPage();
+    let homePage = new HomePage();
+
     let userRegistered: User;
     let user: User;
+
+
     const requiredPasswordMsg = "Password é obrigatório";
     const requiredNameMsg = "Nome é obrigatório";
     const requiredEmailMsg = "Email é obrigatório";

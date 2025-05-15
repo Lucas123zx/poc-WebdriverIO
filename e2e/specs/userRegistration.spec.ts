@@ -5,7 +5,7 @@ import GetUsersService from '../../pageobjects/actions/api/GetUsersService.js';
 import CommonPage from '../../pageobjects/pages/CommonPage.js';
 import HomePage from '../../pageobjects/pages/HomePage.js';
 import LoginPage from '../../pageobjects/pages/LoginPage.js';
-import BasePage from '../../pageobjects/pages/base/BasePage.js';
+import BasePage from '../../pageobjects/actions/base/BaseAction.js';
 import ListUserPage from '../../pageobjects/pages/ListUserPage.js';
 import UserRegistrationPage from '../../pageobjects/pages/UserRegistrationPage.js';
 import { expect } from 'expect-webdriverio';

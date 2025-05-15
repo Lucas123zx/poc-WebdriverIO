@@ -1,22 +1,24 @@
 import HomeElements from '../elements/HomeElements';
-import BasePage from './base/BasePage';
+import { BaseActions } from '../actions/base/BaseAction';
 
-class HomePage extends HomeElements {
+let baseActions = new BaseActions();
+
+export class HomePage extends HomeElements {
 
   async getTitleHomeAdm() {
-    await this.cards.waitForDisplayed();
-    return await BasePage.getText(await this.title);
+    await baseActions.waitElementDisplayed(this.cards);
+    await baseActions.getText(this.title);
   }
   
   async getTitleHome() {
-    await this.listProducts.waitForDisplayed();
-    return await BasePage.getText(await this.title);
+    await baseActions.waitElementDisplayed(this.listProducts);
+    await baseActions.getText(this.title);
   }
   
   async clickRegisterUser() {
+    await baseActions.waitElementDisplayed(this.linkRegister);
     await this.linkRegister.click();
   }
   
 }
 
-export default new HomePage();

@@ -1,10 +1,8 @@
 import { $, $$ } from '@wdio/globals';
-import HomeElements from './HomeElements';
-
-export default class ListUsersElements extends HomeElements{
+export default class ListUsersElements {
 
   public get title() {
-    return $(HomeElements.prototype.title);
+    return $('h1');
   }
 
   public get titleCollunList() {

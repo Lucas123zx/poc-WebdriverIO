@@ -18,7 +18,7 @@ export const config: WebdriverIO.Config = {
         }]
     ],
     specs: [
-        '../e2e/specs/**/userRegistration.spec.ts'
+        '../e2e/specs/**/login.spec.ts'
     ],
     exclude: [],
     maxInstances: 1,
@@ -34,7 +34,7 @@ export const config: WebdriverIO.Config = {
     framework: 'mocha',
     mochaOpts: {
         ui: 'bdd',
-        timeout: 10000000,
+        timeout: 60000,
     },
 
     afterTest: async function (test, context, { error }) {

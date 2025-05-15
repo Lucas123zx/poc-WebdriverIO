@@ -1,10 +1,16 @@
 import LoginElements from '../elements/LoginElements';
 
-class LoginPage extends LoginElements {
+export class LoginPage extends LoginElements {
 
-  async login (email: string, password: string) {
+  async writeInputEmail(email: string) {
     await this.inputEmail.addValue(email);
+  }
+
+  async writeInputPassword(password: string) {
     await this.inputPassword.addValue(password);
+  }
+
+  async clickBtnLogin() {
     await this.btnLogin.click();
   }
 
@@ -18,6 +24,4 @@ class LoginPage extends LoginElements {
     return msg
   }
 
-}
-
-export default new LoginPage();
+};

@@ -1,28 +1,26 @@
 import { $ } from '@wdio/globals';
 import RegisterElements  from '../elements/RegisterElements';
-import Common from '../elements/common/CommonElements';
+import CommonElements from '../elements/CommonElements';
+import { BaseActions } from '../actions/base/BaseAction';
 
-const registerElements = new RegisterElements();
-const commonElements = new Common();
+let commonElements = new CommonElements();
+let baseActions = new BaseActions();
 
-class RegisterPage  {
+export class RegisterPage extends RegisterElements {
 
   async clickBtnRegister() {
+    await baseActions.waitElementDisplayed(commonElements.btnRegister);
     await commonElements.btnRegister.click();
   }
 
   async getMsgSucess() {
-    await registerElements.msgSuccess.isDisplayed();
-    const msgSucess = await registerElements.msgSuccess.getText();
-    return msgSucess;
+    await baseActions.waitElementDisplayed(this.msgSuccess);
+    await baseActions.getText(this.msgSuccess);
   }
 
   async getMsgFail(element: string) {
-    $(`//span[text()="${element}"]`).waitForDisplayed();
-    const msgFail = $(`//span[text()="${element}"]`).getText();
-    return msgFail;
+    await baseActions.waitElementDisplayed(`//span[contains(text(),'${element}')]`);
+    await baseActions.getText(`//span[contains(text(),'${element}')]`);
   }
 
 }
-
-export default new RegisterPage();

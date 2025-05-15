@@ -1,18 +1,48 @@
 import ListUsersElements from '../elements/ListUsersElements';
 import { User } from '../../models/Users';
+import { BaseActions } from '../actions/base/BaseAction';
 
-let listUsersElements = new ListUsersElements();
+let baseAction = new BaseActions();
+export class ListUserPage extends ListUsersElements {
 
-class ListUserPage {
+  async clickBtnEdit() {
+    await baseAction.waitElementDisplayed(this.btnEdit);
+    await this.btnEdit.click();
+  }
 
- async waitListDisplayed() {
-    await listUsersElements.datasUser.waitForDisplayed();
+  async clickBtnDelte() {
+    await baseAction.waitElementDisplayed(this.btnDelete);
+    await this.btnDelete.click();
+  }
+
+  async getTextCollunName() {
+    await baseAction.waitElementDisplayed(this.datasNames);
+    return await this.datasNames.getText();
+  }
+  
+  async getTextCollunEmail() {
+    await baseAction.waitElementDisplayed(this.datasEmail);
+    return await this.datasEmail.getText();
+  }
+
+  async getTextCollunPassword() {
+    await baseAction.waitElementDisplayed(this.datasPassword);
+    return await this.datasPassword.getText();
+  }
+
+  async getTextCollunAdm() {
+    await baseAction.waitElementDisplayed(this.datasAdmin);
+    return await this.datasAdmin.getText();
+  }
+
+  async getListUsers() {
+    await baseAction.waitElementDisplayed(this.datasUser);
+    return await this.list;
   }
 
   async findUser(nameUser: string, emailUser: string) {
-    await this.waitListDisplayed();
       
-    let elements = await listUsersElements.list;
+    let elements = await this.getListUsers();
     
     for (let element of elements) {
       let namesUsersTexts = await element.$('td:nth-child(1)').getText();
@@ -32,5 +62,7 @@ class ListUserPage {
       }
     }
   }
+
+  
+  
 }
-export default new ListUserPage();

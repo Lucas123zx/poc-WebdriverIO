@@ -1,12 +1,15 @@
-import { expect as expectChai } from 'chai';
 import { before, describe, it} from 'mocha';
 import PostUserService from '../../pageobjects/actions/api/PostUserService.js';
 import { Users } from '../../pageobjects/util/Users';
-import LoginPage from '../../pageobjects/pages/LoginPage.js';
-import HomePage from '../../pageobjects/pages/HomePage.js';
-import BasePage from '../../pageobjects/pages/base/BasePage.js';
+import { LoginActions } from '../../pageobjects/actions/ui/LoginActions.js';
+import { HomeActions } from '../../pageobjects/actions/ui/HomeActions.js';
+import { BaseActions } from '../../pageobjects/actions/base/BaseAction.js';
 
 describe('Login', () => {
+
+  let loginActions = new LoginActions();
+  let homeActions = new HomeActions();
+  let baseActions = new BaseActions();
 
   const admin = new Users("userAdm"); 
   const common = new Users("user"); 
@@ -20,36 +23,27 @@ describe('Login', () => {
   });
 
   it('Should login user admin with sucess' ,  async () => {
-    BasePage.open("/login");
+    await loginActions.login(admin.email, admin.password);
 
-    await LoginPage.login(admin.email, admin.password);
+    await homeActions.assertionTitleHomeAdm(admin);
 
-    const homeText = await HomePage.getTitleHomeAdm();
-    expectChai(homeText).to.be.equal("Bem Vindo "  + admin.nome);
-
-    await BasePage.screenshot();
+    await baseActions.screenshot();
   });
 
   it('Should login user common with sucess' ,  async () => {
-    BasePage.open("/login");
+    await loginActions.login(common.email, common.password);
 
-    await LoginPage.login(common.email, common.password);
-    const homeText = await HomePage.getTitleHome();
+    await homeActions.assertionTitleHome();
 
-    expectChai(homeText).to.be.equal("Serverest Store");
-
-    await BasePage.screenshot();
+    await baseActions.screenshot();
   });
 
   it('Login should fail for a user with invalid credentials' , async () => {
-    BasePage.open("/login");
-
-    await LoginPage.login(common.email, "@#");
-    let msg = await LoginPage.getTextInvalid();
-
-    expectChai(msg).to.be.equal("Email e/ou senha inválidos");
+    await loginActions.login(common.email, "@#");
+   
+    await loginActions.assertionMsgFail("Email e/ou senha inválidos")
     
-    await BasePage.screenshot();
+    await baseActions.screenshot();
   });
 
 })
