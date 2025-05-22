@@ -2,8 +2,8 @@ import { browser } from '@wdio/globals';
 import * as fs from 'fs';
 import * as path from 'path';
 
-export let currentTestTitle = '';
-export let curretSpecFile = '';
+export let currentTestTitleHeadless = '';
+export let currentSpecFileHeadless  = '';
 
 export const config: WebdriverIO.Config = {
     runner: 'local',
@@ -18,7 +18,7 @@ export const config: WebdriverIO.Config = {
         }]
     ],
     specs: [
-        '../e2e/specs/**/*.ts'
+        '../e2e/specs/**/*.spec.ts'
     ],
     exclude: [],
     maxInstances: 1,
@@ -63,8 +63,8 @@ export const config: WebdriverIO.Config = {
         } else {
             console.log(`✅ A pasta já existe: ${screenshotFolder}`);
         }
-        currentTestTitle = test.title;
-        curretSpecFile = specFileName;
+        currentTestTitleHeadless = test.title;
+        currentSpecFileHeadless   = specFileName;
     },  
 
    

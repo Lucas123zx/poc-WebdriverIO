@@ -1,47 +1,46 @@
 import ListUsersElements from '../elements/ListUsersElements';
 import { User } from '../../models/Users';
-import { BaseActions } from '../actions/base/BaseAction';
+import { BasePage } from './BasePage';
 
-let baseAction = new BaseActions();
-export class ListUserPage extends ListUsersElements {
+let listUsersElements = new ListUsersElements();
+export class ListUserPage extends BasePage {
 
   async clickBtnEdit() {
-    await baseAction.waitElementDisplayed(this.btnEdit);
-    await this.btnEdit.click();
+    await this.waitElementDisplayed(listUsersElements.btnEdit);
+    await listUsersElements.btnEdit.click();
   }
 
   async clickBtnDelte() {
-    await baseAction.waitElementDisplayed(this.btnDelete);
-    await this.btnDelete.click();
+    await this.waitElementDisplayed(listUsersElements.btnDelete);
+    await listUsersElements.btnDelete.click();
   }
 
   async getTextCollunName() {
-    await baseAction.waitElementDisplayed(this.datasNames);
-    return await this.datasNames.getText();
+    await this.waitElementDisplayed(listUsersElements.datasNames);
+    return await listUsersElements.datasNames.getText();
   }
   
   async getTextCollunEmail() {
-    await baseAction.waitElementDisplayed(this.datasEmail);
-    return await this.datasEmail.getText();
+    await this.waitElementDisplayed(listUsersElements.datasEmail);
+    return await listUsersElements.datasEmail.getText();
   }
 
   async getTextCollunPassword() {
-    await baseAction.waitElementDisplayed(this.datasPassword);
-    return await this.datasPassword.getText();
+    await this.waitElementDisplayed(listUsersElements.datasPassword);
+    return await listUsersElements.datasPassword.getText();
   }
 
   async getTextCollunAdm() {
-    await baseAction.waitElementDisplayed(this.datasAdmin);
-    return await this.datasAdmin.getText();
+    await this.waitElementDisplayed(listUsersElements.datasAdmin);
+    return await listUsersElements.datasAdmin.getText();
   }
 
   async getListUsers() {
-    await baseAction.waitElementDisplayed(this.datasUser);
-    return await this.list;
+    await this.waitElementDisplayed(listUsersElements.datasUser);
+    return await listUsersElements.list;
   }
 
   async findUser(nameUser: string, emailUser: string) {
-      
     let elements = await this.getListUsers();
     
     for (let element of elements) {

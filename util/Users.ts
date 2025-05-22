@@ -1,4 +1,4 @@
-import { User } from '../../models/Users'; 
+import { User } from '../models/Users'; 
 import { faker } from '@faker-js/faker';
 import 'dotenv/config';
 

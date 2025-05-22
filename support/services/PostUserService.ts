@@ -1,6 +1,6 @@
-import types from  '../../../src/types';
+import types from  '../../src/types';
 import axios from 'axios';
-import BaseAPI from  '../base/BaseAPI';
+import BaseAPI from  './BaseAPI';
 import { expect } from 'expect-webdriverio';
 
 interface Body {

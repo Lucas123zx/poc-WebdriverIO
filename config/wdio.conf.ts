@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 export let currentTestTitle = '';
-export let curretSpecFile = '';
+export let currentSpecFile  = '';
 
 export const config: WebdriverIO.Config = {
     runner: 'local',
@@ -18,7 +18,7 @@ export const config: WebdriverIO.Config = {
         }]
     ],
     specs: [
-        '../e2e/specs/**/login.spec.ts'
+        '../e2e/specs/**/*.spec.ts'
     ],
     exclude: [],
     maxInstances: 1,
@@ -53,6 +53,6 @@ export const config: WebdriverIO.Config = {
             console.log(`✅ A pasta já existe: ${screenshotFolder}`);
         }
         currentTestTitle = test.title;
-        curretSpecFile = specFileName;
+        currentSpecFile  = specFileName;
     },  
 }
