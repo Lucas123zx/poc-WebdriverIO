@@ -4,15 +4,12 @@ import { Users } from '../../util/Users.js';
 import { User } from '../../models/Users.js';
 import { RegisterPage } from '../../support/pages/RegisterPage.js';
 import { HomePage } from '../../support/pages/HomePage.js';
-import Actions  from '../../util/Actions.js'
+import screenshot from '../../util/actions.js'
 
 describe('Register user', () => {
 
     let homePage = new HomePage();
     let registerPage = new RegisterPage();
-    let actions = new Actions();
-    
-
     let userRegistered: User;
     let user: User;
 
@@ -39,7 +36,7 @@ describe('Register user', () => {
         const homeText = await homePage.getTitleHomeAdm();
         expectChai(homeText).to.be.equal("Bem Vindo " + user.nome);
 
-        await actions.screenshot();
+        await screenshot();
     });
 
     it('Should register user common with sucess', async function() { 
@@ -53,7 +50,7 @@ describe('Register user', () => {
         const homeText = await homePage.getTitleHome();
         expectChai(homeText).to.be.equal("Serverest Store");
 
-        await actions.screenshot();
+        await screenshot();
     });
     
     it('Should be visible text "Este email ja está sendo usado" ', async function() { 
@@ -67,7 +64,7 @@ describe('Register user', () => {
         const msg = await registerPage.getMsgFail(emailIsBeingUsingMsg);
         expectChai(msg).to.be.equal(emailIsBeingUsingMsg);
 
-        await actions.screenshot();
+        await screenshot();
     });
 
     it('Should be visible text "Email é obrigtório" ', async function() { 
@@ -80,7 +77,7 @@ describe('Register user', () => {
         const msg = await registerPage.getMsgFail(requiredEmailMsg);
         expectChai(msg).to.be.equal(requiredEmailMsg);
 
-        await actions.screenshot();
+        await screenshot();
     });
     
     it('Register user not inform name', async function() { 
@@ -93,7 +90,7 @@ describe('Register user', () => {
         const msg = await registerPage.getMsgFail(requiredNameMsg);
         expectChai(msg).to.be.equal(requiredNameMsg);
 
-        await actions.screenshot();
+        await screenshot();
     });
 
     it('Register user not inform password', async function() { 
@@ -106,7 +103,7 @@ describe('Register user', () => {
         const msg = await registerPage.getMsgFail(requiredPasswordMsg);
         expectChai(msg).to.be.equal(requiredPasswordMsg);
         
-        await actions.screenshot();
+        await screenshot();
     });
 });
 

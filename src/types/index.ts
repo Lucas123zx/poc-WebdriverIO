@@ -6,4 +6,4 @@ const types = {
   apiEndpoints: endpoints
 }
 
-export default types 
+export default types;

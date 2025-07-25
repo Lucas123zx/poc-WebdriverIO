@@ -6,12 +6,12 @@ let userRegistrationsElements = new UserRegistrationsElements();
 
 export class UserRegistrationPage extends BasePage {
 
-  async visibleAlert(element: string) {
+  async waitVisibleElement(element: string) {
     await this.waitElementDisplayed(element);;
   }
 
   async getTextAlert(element: string) {
-    await this.visibleAlert(`//span[contains(text(),'${element}')]`);
+    await this.waitVisibleElement(`//span[contains(text(),'${element}')]`);
     return await $(`//span[contains(text(),'${element}')]`).getText();
   }
   

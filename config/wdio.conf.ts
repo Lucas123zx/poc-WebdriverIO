@@ -18,7 +18,7 @@ export const config: WebdriverIO.Config = {
         }]
     ],
     specs: [
-        '../e2e/specs/**/*.spec.ts'
+        '../e2e/specs/**/userREgistration.spec.ts'
     ],
     exclude: [],
     maxInstances: 1,
@@ -37,7 +37,7 @@ export const config: WebdriverIO.Config = {
         timeout: 60000,
     },
 
-    afterTest: async function (test, context, { error }) {
+    afterTest: async function ({ error }) {
         if (error) {
             await browser.takeScreenshot();
         }

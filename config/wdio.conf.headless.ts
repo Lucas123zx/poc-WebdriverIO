@@ -48,7 +48,7 @@ export const config: WebdriverIO.Config = {
         timeout: 60000,
     },
  
-    afterTest: async function (test, context, { error }) {
+    afterTest: async function ({ error }) {
         if (error) {
             await browser.takeScreenshot();
         }

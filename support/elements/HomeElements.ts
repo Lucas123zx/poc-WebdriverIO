@@ -2,12 +2,16 @@ import { $ } from '@wdio/globals';
 
 export default class HomeElements {
 
+  public get titleAdm() {
+    return $('//h1[contains(text(), "Bem Vindo  ")]');
+  }
+
   public get title() {
-    return $('h1');
+    return $('//h1[contains(text(), "Serverest Store")]');
   }
 
   public get cards() { 
-    return $('div[class="card"');
+    return $('div[class="card-body"');
   }
 
   public get lead() {
@@ -24,6 +28,10 @@ export default class HomeElements {
 
   public get linkRegister() { 
     return $('a[data-testid="cadastrar-usuarios"]');
+  }
+
+  public get subTitle() {
+    return $('//p[text()="Este é seu sistema para administrar seu ecommerce."]')
   }
 
 }

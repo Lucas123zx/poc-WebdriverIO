@@ -1,4 +1,3 @@
-import { $ } from '@wdio/globals';
 import RegisterElements  from '../elements/RegisterElements';
 import CommonElements from '../elements/CommonElements';
 import { BasePage } from '../pages/BasePage';
@@ -39,8 +38,9 @@ export class RegisterPage extends BasePage {
   }
 
   async getMsgFail(element: string) {
-    await this.waitElementDisplayed(`//span[contains(text(),'${element}')]`);
-    await this.getText(`//span[contains(text(),'${element}')]`);
+    const el = $(`//span[contains(text(),'${element}')]`)
+    await this.waitElementDisplayed(el);
+    return await this.getText(el);
   }
 
   async registerUser(name: string, email: string, password: string) {

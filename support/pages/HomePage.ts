@@ -7,12 +7,17 @@ export class HomePage extends BasePage {
 
   async getTitleHomeAdm() {
     await this.waitElementDisplayed(homeElements.cards);
-    await this.getText(homeElements.title);
+    return await this.getText(homeElements.titleAdm);
+  }
+
+  async getSubtitleHomeAdm() {
+    await this.waitElementDisplayed(homeElements.cards);
+    return await this.getText(homeElements.subTitle);
   }
   
   async getTitleHome() {
     await this.waitElementDisplayed(homeElements.listProducts);
-    await this.getText(homeElements.title);
+    return await this.getText(homeElements.title);
   }
   
   async clickRegisterUser() {
