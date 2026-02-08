@@ -1,63 +1,30 @@
-import { before, describe, it} from 'mocha';
-import { expect as expectChai } from 'chai';
-import screenshot from '../../util/actions.js';
-import PostUserService from '../../support/services/PostUserService.js';
-import { Users } from '../../util/Users.js';
-import { LoginPage } from '../../support/pages/LoginPage.js';
-import { HomePage } from '../../support/pages/HomePage.js';
+import { Person } from '../../src/screenplay/core/person';
+import { BrowseTheWeb } from '../../src/screenplay/abilities/browse-the-web';
+import { Login } from '../../src/screenplay/tasks/login';
+import { WelcomeMessage } from '../../src/screenplay/questions/welcome-message';
+import { Navigate} from ' ../../../src/screenplay/interactions/navigate';
+import { Ensure } from '../../src/screenplay/interactions/ensure';
 
-describe('Login', () => {
+describe('Login Sistema', () => {
+  it('deve realizar login com sucesso e visualizar mensagem de boas-vindas', async () => {
+    
+    // 1. Preparação (O Ator e suas Habilidades)
+    // O objeto 'browser' é fornecido globalmente pelo WebdriverIO
+    const carlos = new Person('Carlos')
+      .can(new BrowseTheWeb(browser));
 
-  let loginPage = new LoginPage();
-  let homePage= new HomePage();
+    // 2. Ação (Tasks)
+    await carlos.attemptsTo(
+      Navigate.to('https://front.serverest.dev/login'),
+      
+      Login.withCredentials('fulano@qa.com', 'teste')
+    );    
 
-  const admin = new Users("userAdm"); 
-  const common = new Users("user"); 
-  
-  before('Create user Adm',  async () => {
-    await PostUserService.createUser(admin);
+    //3. Verificando a mensagem de boas-vindas
+    await carlos.should(
+      Ensure.that(WelcomeMessage.displayed(),  'Bem Vindo Fulano da Silva')
+    );
+
   });
 
-  before('Create user commun'  ,  async () => {
-    await PostUserService.createUser(common);
-  });
-
-  it('[CT01] - Deve realizar login no perfil adm com sucesso' ,  async () => {
-    await loginPage.login(admin.email, admin.password);
-
-    const homeText = await homePage.getTitleHomeAdm();
-    const subTitleText = await homePage.getSubtitleHomeAdm();
-    expectChai(homeText).to.be.equal("Bem Vindo "  + admin.nome);
-    expectChai(subTitleText).to.be.equal("Este é seu sistema para administrar seu ecommerce.");
-
-    await screenshot();
-  });
-
-  it('[CT02] - Deve realizar Login no perfil cliente com sucesso' ,  async () => {
-    await loginPage.login(common.email, common.password);
-
-    const homeText = await homePage.getTitleHome();
-    expectChai(homeText).to.be.equal("Serverest Store");
-
-    await screenshot();
-  });
-
-  it('[CT03] - Deve realizar login com campo "email" vazio' , async () => {
-    await loginPage.login('', common.password);
-   
-    let msg = await loginPage.getTextInvalid();
-    expectChai(msg).to.be.equal("Email e/ou senha inválidos");
-
-    await screenshot();
-  });
-
-  it('[CT04] - Deve realizar o login com campo "senha" vazio' , async () => {
-    await loginPage.login(common.email, '');
-   
-    let msg = await loginPage.getTextInvalid();
-    expectChai(msg).to.be.equal("Email e/ou senha inválidos");
-
-    await screenshot();
-  });
-
-})
+});

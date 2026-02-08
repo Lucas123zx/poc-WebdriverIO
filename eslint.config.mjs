@@ -1,25 +1,37 @@
-import globals from "globals";
-import pluginJs from "@eslint/js";
+import tseslint from 'typescript-eslint';
+import eslint from '@eslint/js';
 
-export default [
+export default tseslint.config(
+  eslint.configs.recommended,
+  eslint.configs.recommended,
+
   {
-    ignores: ["reports/**/*"],
-    // Arquivos ignorados pelo eslint
-  },
-  // Configurações de ambiente (exemplo: navegador)
-  {
+    files: ['**/*.ts', '**/*.tsx'],
+
     languageOptions: {
-      globals: globals.node,  
-      // Definir globais específicos para o navegador
+      parser: tseslint.parser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module'
+      }
     },
-  },
-  // Regras recomendadas do plugin JS
-  pluginJs.configs.recommended,
-  // Suas regras personalizadas
-  {
+
     rules: {
-      "no-unused-vars": "warn",
-      "no-undef": "error", // Força o uso de "use strict" globalmente
-    },
-  },
-];
+      'no-unused-vars': 'warn',
+      'no-undef': 'off',
+      'no-multiple-empty-lines': [
+        'error',
+        { max: 1 }
+      ],
+      quotes: [
+        'error',
+        'single',
+        { allowTemplateLiterals: true }
+      ],
+      semi: [
+        'error',
+        'always'
+      ]
+    }
+  }
+);

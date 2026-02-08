@@ -67,5 +67,4 @@ export const config: WebdriverIO.Config = {
         currentSpecFileHeadless   = specFileName;
     },  
 
-   
-}
+};

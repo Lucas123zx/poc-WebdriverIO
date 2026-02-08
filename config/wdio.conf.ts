@@ -18,7 +18,7 @@ export const config: WebdriverIO.Config = {
         }]
     ],
     specs: [
-        '../e2e/specs/**/userREgistration.spec.ts'
+        '../e2e/specs/**/login.spec.ts'
     ],
     exclude: [],
     maxInstances: 1,
@@ -55,4 +55,4 @@ export const config: WebdriverIO.Config = {
         currentTestTitle = test.title;
         currentSpecFile  = specFileName;
     },  
-}
+};
