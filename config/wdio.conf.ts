@@ -18,7 +18,7 @@ export const config: WebdriverIO.Config = {
         }]
     ],
     specs: [
-        '../e2e/specs/**/login.spec.ts'
+        '../src/specs/**/login.spec.ts'
     ],
     exclude: [],
     maxInstances: 1,

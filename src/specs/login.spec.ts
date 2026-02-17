@@ -1,9 +1,9 @@
-import { Person } from '../../src/screenplay/core/person';
-import { BrowseTheWeb } from '../../src/screenplay/abilities/browse-the-web';
-import { Login } from '../../src/screenplay/tasks/login';
-import { WelcomeMessage } from '../../src/screenplay/questions/welcome-message';
+import { Person } from '../screenplay/core/person';
+import { BrowseTheWeb } from '../screenplay/abilities/browse-the-web';
+import { Login } from '../screenplay/tasks/login';
+import { WelcomeMessage } from '../screenplay/questions/welcome-message';
 import { Navigate} from ' ../../../src/screenplay/interactions/navigate';
-import { Ensure } from '../../src/screenplay/interactions/ensure';
+import { expect } from 'chai';
 
 describe('Login Sistema', () => {
   it('deve realizar login com sucesso e visualizar mensagem de boas-vindas', async () => {
@@ -21,10 +21,8 @@ describe('Login Sistema', () => {
     );    
 
     //3. Verificando a mensagem de boas-vindas
-    await carlos.should(
-      Ensure.that(WelcomeMessage.displayed(),  'Bem Vindo Fulano da Silva')
-    );
-
+    const menssage = carlos.ask(WelcomeMessage.displayed());
+    expect(menssage).to.be.eq('Bem Vindo Fulano da Silva');
   });
 
 });

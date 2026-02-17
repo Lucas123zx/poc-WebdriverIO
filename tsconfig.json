@@ -26,5 +26,5 @@
         "e2e",
         "./config/wdio.conf.ts",
         "./config/wdio.conf.headless.ts"
-    ]
+, "src/specs"    ]
 }

@@ -17,6 +17,7 @@ export class Click implements Task {
     async performAs(actor: Actor): Promise<void> {
         const browser = BrowseTheWeb.as(actor);
         const element = await browser.locator(this.selector);
+        await element.waitForDisplayed();
         await element.click();
     }
 
